@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema(
     },
     availableAttempts: {
       type: Number,
+      writable: true,
       required: false,
     },
   },

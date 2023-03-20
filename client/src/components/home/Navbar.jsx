@@ -78,12 +78,12 @@ const Navbar = () => {
 
   const subscriptionAccessTheory = async () => {
     const response = await subscriptions({ userId: user.id });
-    if (response === "Standard") {
+    if (response === "Premium") {
       history.push("/theorypapers");
-    } else if (response === "Basic") {
+    } else if (user.availableAttempts > 0) {
       history.push("/theorypapers");
-    } else if (response === "Premium") {
-      history.push("/theorypapers");
+      // } else if (response === "Premium") {
+      //   history.push("/theorypapers");
     } else {
       history.push("/paymentplans");
     }

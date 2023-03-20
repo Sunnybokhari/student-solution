@@ -1,0 +1,458 @@
+.selected-option {
+    box-shadow: rgba(0, 0, 0, 0.638) 0px 0px 1px;
+    padding: 10px;
+    border-radius: 2px;
+    border: 2px solid #1e88e5;
+    background-color: #007bff;
+    color: white;
+  }
+
+.option{
+    background-color: white;
+}
+
+
+/* Navbar Component */
+
+.navL{
+    font-weight: bold;
+    transition: all ease-in-out .2s;
+
+}
+
+.navlink {
+    margin: 0px 15px;
+    color: #007bff;
+    position: relative;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .navlink::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 0;
+    bottom: -4px;
+    left: 0;
+    background-color: #007bff;
+    transition: width 0.2s ease-in-out;
+  }
+  
+  .navlink:hover::before {
+    width: 100%;
+  }
+  
+  .navlink:hover {
+    color: #007bff;
+  }
+
+
+
+/* Navbar Component */
+
+
+
+
+/* Carousel Component */
+
+.carouselimg {
+    height: 600px;
+    filter: brightness(70%)
+}
+
+.sliderHeading {
+    color:white;
+    font-size: 3em;
+
+}
+
+.sliderP {
+    color:white;
+    font-size: 2em;
+}
+
+.sliderB{
+    font-weight: bold;
+}
+.sliderB:hover {
+border-color: white;
+color: white;
+background: none;
+}
+
+/* Carousel Component */
+
+/* Advertisment Component */
+
+.headerP{
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    color: blue;
+    font-weight: bold;
+}
+
+.adP{
+    color: rgba(40, 40, 40, 0.717);
+}
+.pointS{
+    width: 100%;
+    height: 100%;
+}
+
+.pointI{
+    width:70px;
+    height: 70px;
+    
+}
+
+/* Advertisment Component */
+
+/* Advertisment 2 Component */
+
+.adH{
+    font-weight: bold;
+}
+
+/* Advertisment 2 Component */
+
+/* Payment Plan Component */
+
+.planH{
+    color:rgb(0, 89, 255);
+}
+
+.planPrice{
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.priceS{
+    font-size: 32px;
+    font-weight: normal;
+}
+
+.priceSs{
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.planL{
+    padding-left: 0px;
+    padding-top: 10px;
+    list-style: none;
+    line-height: 40px;
+}
+.planB {
+    margin-top: 20px;
+background: blue;
+padding: 8px 30px;
+margin-bottom: 50px;
+    }
+.planB:hover {
+    border-color: blue;
+    color: blue;
+    background: none;
+    }
+/* Payment Plan Component */
+
+
+/* Form Input Component */
+
+.formI{
+    padding-left: 100px;
+    margin-top: 50px;
+}
+
+.formImg{
+
+    width: 100%;
+    
+}
+
+.formL{
+    text-align: center;
+    margin-left:190px ;
+    justify-content: center;
+   cursor: pointer; 
+}
+
+.formB{
+    padding:10px 30px;
+    font-weight: bold;
+    
+}
+
+.formB:hover{
+    background-color: white;
+    color: #1e88e5;
+}
+
+.forminput{
+    width:100%;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    height:50px;
+font-size: large;
+}
+
+.forminputdiv{
+    height:50px;
+    margin-bottom: 40px;;
+}
+/* Form Input Component */
+
+
+/* Subject Component */
+
+.subIcon{
+    justify-content: center;
+    text-align: center;
+    margin: 17px 15px;
+color: white;
+
+}
+
+.subIcon1{
+    justify-content: center;
+    text-align: center;
+    margin: 17px 17px;
+color: white;
+
+}
+
+/* Subject Component */
+
+/* MCQ Component */
+
+.mcqB:hover{
+    background-color: white;
+    color: #1e88e5;
+}
+
+.selectContainer{
+    border-radius: 5px;
+}
+
+.selectOption{
+    border-radius: 5px;
+}
+
+.questionImage{
+    margin: auto;
+    width: 100%;
+}
+
+.optionButton{
+    text-align: center;
+}
+
+.review{
+    width: 80%;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin: auto;
+}
+
+.reviewWrapper{
+    display: flex;
+    justify-content: center;
+}
+/* MCQ Component */
+
+
+
+/* Instructions Component */
+
+.instructionsWrapper{
+    display: flex;
+    justify-content: center;
+
+}
+
+.mb-50{
+    margin-bottom: 50px;
+}
+.mb-30{
+    margin-bottom: 30px;
+}
+
+.instructionsHeader{
+    text-align: center;
+    text-decoration: underline;
+}
+
+.instructionsContainer{
+    display: block;
+}
+
+.instructionsList{
+    display: block;
+}
+
+.instructionsButtonsContainer{
+display: flex;
+justify-content: center;
+margin-top: 30px;
+margin-bottom: 100px;
+}
+
+.instructionsButton{
+    margin-top: 20px;
+    background:#007bff ;
+    color: white;
+    padding: 8px 30px;
+    border-radius: 5px;
+    margin-bottom: 50px;
+    }
+.instructionsButton:hover {
+    border-color: #007bff;
+    color: #007bff;
+    background: none;
+    }
+
+    .instructionsButtonC{
+        margin-top: 20px;
+        padding: 8px 30px;
+        border-radius: 5px;
+        margin-bottom: 50px;
+        }
+    /* .instructionsButtonC:hover {
+        border-color: rgba(0, 81, 255, 0.437);
+        color: rgba(0, 81, 255, 0.437);
+        background: none;
+        } */
+
+
+/* Instructions Component */
+
+
+/* Attempt MCQ Component */
+
+.flexAttemptOptions{
+    display: flex;
+    justify-content: center;
+
+}
+
+.flexAttemptQuestion{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    
+}
+
+.timerContainer{
+    display: flex;
+    justify-content:start;
+    padding-left: 0px;
+}
+
+.flexAttempt{
+    display: flex;
+    justify-content: end;
+
+}
+
+.flexAttemptButtons{
+    display: flex;
+    justify-content: end;
+    margin-right: 105px;
+    margin-bottom: 100px;
+}
+
+.attemptButton{
+    margin-top: 20px;
+    background:#007bff ;
+    color: white;
+    padding: 8px 30px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    justify-content: end;
+    }
+.attemptButton:hover {
+    border-color: #007bff;
+    color: #007bff;
+    background: none;
+    }
+
+.attemptButtonSubmit{
+    margin-top: 20px;
+    background:#28a745 ;
+    color: white;
+    padding: 8px 30px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    justify-content: end;
+    }
+.attemptButtonSubmit:hover {
+    border-color: #28a745;
+    color: #28a745;
+    background: none;
+    }
+
+.attemptButtonPrevious{
+    margin-top: 20px;
+    padding: 8px 30px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    justify-content: end;
+}
+
+.timer{
+border: solid 1px #007bff;
+width: 150px;
+height: 80px;
+text-align: center;
+padding-top: 28px;
+border-radius: 10px;
+    }
+
+
+
+
+/* Attempt MCQ Component */
+
+
+/* Attempt Result Component */
+
+.resultContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mb-100{
+    margin-bottom: 100px;
+}
+
+.c-blk{
+    color: black;
+}
+
+.marks{
+    color: black;
+}
+
+.reviewRetakeButton{
+    background:#007bff ;
+    color: white;
+
+    }
+.reviewRetakeButton:hover {
+    border-color: #007bff;
+    color: #007bff;
+    background: none;
+    }
+
+/* Attempt Result Component */
+
+/* Attempt Theory Component */
+
+.theoryInput{
+    border-radius: 5px;
+}
+
+/* Attempt Theory Component */

@@ -47,10 +47,15 @@ router.post("/webhook", async (req, res) => {
 
     console.log(session.amount_total);
     // Set AvailableAttempts based on price plan
+
+    if (!user.availableAttempts) {
+      user.availableAttempts = 0; // create preference array if it doesn't exist
+    }
+
     if (session.amount_total === 5000) {
-      user.AvailableAttempts = 5;
+      user.availableAttempts += 5;
     } else if (session.amount_total === 15000) {
-      user.AvailableAttempts = 15;
+      user.availableAttempts += 15;
     }
 
     await user.save();

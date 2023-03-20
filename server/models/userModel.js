@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
       ref: "teachers",
       required: false,
     },
-    AvailableAttempts: {
+    availableAttempts: {
       type: Number,
       required: false,
     },

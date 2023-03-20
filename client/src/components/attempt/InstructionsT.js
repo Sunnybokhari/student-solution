@@ -35,6 +35,9 @@ function Instructions({ examData, setView, startTimer }) {
       });
       if (response.success) {
         message.success(response.message);
+        if (user.availableAttempts > 0) {
+          user.availableAttempts -= 1;
+        }
       } else {
         message.error(response.message);
       }

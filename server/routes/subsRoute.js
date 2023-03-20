@@ -52,9 +52,9 @@ router.post("/webhook", async (req, res) => {
       user.availableAttempts = 0; // create preference array if it doesn't exist
     }
 
-    if (session.amount_total === 5000) {
+    if (session.amount_total === 500000) {
       user.availableAttempts += 5;
-    } else if (session.amount_total === 15000) {
+    } else if (session.amount_total === 1500000) {
       user.availableAttempts += 15;
     }
 

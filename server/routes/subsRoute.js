@@ -23,8 +23,8 @@ router.post("/session", authMiddleware, async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: "http://localhost:3000",
-      cancel_url: "http://localhost:3000",
+      success_url: "https://studentsolutions.herokuapp.com",
+      cancel_url: "https://studentsolutions.herokuapp.com",
       customer: user.stripeCustomerId,
     },
     {

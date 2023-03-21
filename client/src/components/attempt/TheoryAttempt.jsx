@@ -10,6 +10,15 @@ import { addReport } from "../../apiCalls/theoryReports";
 import Footer from "../home/Footer";
 import Navbar from "../home/Navbar";
 import Instructions from "./InstructionsT";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+import { storage } from "../../apiCalls/firebase";
+import { v4 } from "uuid";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -199,9 +208,8 @@ const McqAttempt = () => {
     }
   }, []);
 
-  const [inputField, setInputField] = useState({
-    picture: "",
-  });
+  const [inputField, setInputField] = useState(null);
+  const [imageUrls, setImageUrls] = useState([]);
 
   const imageUpload = (event) => {
     setInputField({ ...inputField, picture: event.target.files[0] });
@@ -209,6 +217,15 @@ const McqAttempt = () => {
   };
 
   const onFinish = async () => {
+    if (inputField == null) return;
+    const imageRef = ref(storage, `images/${inputField.name + v4()}`);
+    uploadBytes(imageRef, inputField).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrls((prev) => [...prev, url]);
+      });
+    });
+
+    ////////////
     console.log("==", inputField.picture, "===", inputField.picture.name);
     if (inputField.picture) {
       const formdata = new FormData();
@@ -285,12 +302,18 @@ const McqAttempt = () => {
                     >
                       <div style={{ paddingTop: 15 }}>
                         <Form.Item name="myFile" label="">
-                          <input
+                          {/* <input
                             className="theoryInput"
                             type="file"
                             name="myFile"
                             id="myFile"
                             onChange={imageUpload}
+                          /> */}
+                          <input
+                            type="file"
+                            onChange={(event) => {
+                              setInputField(event.target.files[0]);
+                            }}
                           />
                         </Form.Item>
                       </div>
@@ -347,54 +370,6 @@ const McqAttempt = () => {
                 <span className="timer">{secondsLeft} minutes</span>
               </Col>
             </Row>
-            {/* <Row>
-              <Form layout="vertical">
-                <Form.Item name="myFile" label="Answer">
-                  <input
-                    type="file"
-                    name="myFile"
-                    id="myFile"
-                    onChange={imageUpload}
-                  />
-                </Form.Item>
-                {selectedQuestionIndex > 0 && (
-                  <Button
-                    className="primary"
-                    onClick={() => {
-                      setSelectedQuestionIndex(selectedQuestionIndex - 1);
-                    }}
-                  >
-                    Previous
-                  </Button>
-                )}
-
-                {selectedQuestionIndex < questions.length - 1 && (
-                  <Button
-                    className="primary"
-                    onClick={() => {
-                      onFinish();
-                      setSelectedQuestionIndex(selectedQuestionIndex + 1);
-                    }}
-                  >
-                    Next
-                  </Button>
-                )}
-
-                {selectedQuestionIndex === questions.length - 1 && (
-                  <Button
-                    className="primary"
-                    type="submit"
-                    onClick={() => {
-                      onFinish();
-                      clearInterval(intervalId);
-                      setTimeUp(true);
-                    }}
-                  >
-                    Submit
-                  </Button>
-                )}
-              </Form>
-            </Row> */}
           </Row>
         )}
 

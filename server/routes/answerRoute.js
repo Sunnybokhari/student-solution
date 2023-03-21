@@ -94,9 +94,16 @@ router.post("/get-answer-by-id", authMiddleware, async (req, res) => {
 ////////// attempt model
 router.post("/attempt", authMiddleware, async (req, res) => {
   try {
+    const userId = req.body.userId;
     req.body.answers = [];
     const newExam = new Attempt(req.body);
     await newExam.save();
+    const user = await User.findById(userId);
+    if (user.availableAttempts > 0) {
+      let temp = user.availableAttempts;
+      temp = temp - 1;
+      user.availableAttempts = temp;
+    }
     res.send({
       message: "attempt added successfully",
       success: true,

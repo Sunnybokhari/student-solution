@@ -99,10 +99,13 @@ router.post("/attempt", authMiddleware, async (req, res) => {
     const newExam = new Attempt(req.body);
     await newExam.save();
     const user = await User.findById(userId);
+    let updatedUser = null;
     if (user.availableAttempts > 0) {
-      let temp = user.availableAttempts;
-      temp = temp - 1;
-      user.availableAttempts = temp;
+      updatedUser = new User({
+        ...user.toObject(),
+        availableAttempts: user.availableAttempts - 1,
+      });
+      await User.updateOne({ _id: userId }, updatedUser);
     }
     res.send({
       message: "attempt added successfully",

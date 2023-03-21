@@ -66,6 +66,17 @@ const Test = () => {
     }
   };
 
+  // const subscriptionAccessTheory = async () => {
+  //   const response = await subscriptions({ userId: user.id });
+  //   if (response === "Premium") {
+  //     history.push("/theorypapers");
+  //   } else if (user.availableAttempts > 0) {
+  //     history.push("/theorypapers");
+  //   } else {
+  //     history.push("/paymentplans");
+  //   }
+  // };
+
   const columns = [
     {
       title: "Class",

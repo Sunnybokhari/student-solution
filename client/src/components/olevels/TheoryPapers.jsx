@@ -65,7 +65,6 @@ const Test = () => {
       message.error(error.message);
     }
   };
-
   // const subscriptionAccessTheory = async () => {
   //   const response = await subscriptions({ userId: user.id });
   //   if (response === "Premium") {

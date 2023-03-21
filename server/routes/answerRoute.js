@@ -22,18 +22,19 @@ const upload = multer({ storage: storage });
 
 router.post(
   "/upload-image",
-  upload.single("myFile"),
-  authMiddleware,
 
   async (req, res) => {
-    let picture = req.file ? req.file.filename : null;
     let attemptId;
     try {
       let exam = await Attempt.find().sort({ _id: -1 });
       attemptId = exam[0]._id;
+
+      const formdata = req.body;
       const newImage = new Answer({
-        ...req.body,
-        picture: req.file.filename,
+        exam: formdata.exam,
+        user: formdata.user,
+        index: formdata.index,
+        picture: formdata.picture,
         attempt: attemptId,
       });
       await newImage.save();

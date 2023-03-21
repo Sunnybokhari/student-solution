@@ -209,49 +209,25 @@ const McqAttempt = () => {
   }, []);
 
   const [inputField, setInputField] = useState(null);
-  const [imageUrls, setImageUrls] = useState([]);
-
-  const imageUpload = (event) => {
-    setInputField({ ...inputField, picture: event.target.files[0] });
-    console.log(inputField);
-  };
-
+  const [imageUrl, setImageUrl] = useState("");
   const onFinish = async () => {
     if (inputField == null) return;
     const imageRef = ref(storage, `images/${inputField.name + v4()}`);
-    uploadBytes(imageRef, inputField).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImageUrls((prev) => [...prev, url]);
-      });
+    const snapshot = await uploadBytes(imageRef, inputField);
+    const url = await getDownloadURL(snapshot.ref);
+    setImageUrl(url);
+    console.log(url);
+
+    const response = await addAnswer({
+      exam: params.id,
+      user: user._id,
+      index: selectedQuestionIndex,
+      picture: url,
     });
-
-    ////////////
-    console.log("==", inputField.picture, "===", inputField.picture.name);
-    if (inputField.picture) {
-      const formdata = new FormData();
-      formdata.append("myFile", inputField.picture, inputField.picture.name);
-      formdata.append("exam", params.id);
-      formdata.append("user", user._id);
-      formdata.append("index", selectedQuestionIndex);
-
-      try {
-        let response;
-        response = await addAnswer(formdata);
-        // response = await addAnswer({
-        //   formdata,
-        //   exam: params.id,
-        //   user: user._id,
-        // });
-
-        if (response.success) {
-          message.success(response.message);
-          setInputField({ ...inputField, picture: "" });
-        } else {
-          message.error(response.message);
-        }
-      } catch (error) {
-        message.error(error.message);
-      }
+    if (response.success) {
+      message.success(response.message);
+    } else {
+      message.error(response.message);
     }
   };
 
@@ -296,19 +272,11 @@ const McqAttempt = () => {
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        // padding: 10,
                       }}
                       layout="vertical"
                     >
                       <div style={{ paddingTop: 15 }}>
                         <Form.Item name="myFile" label="">
-                          {/* <input
-                            className="theoryInput"
-                            type="file"
-                            name="myFile"
-                            id="myFile"
-                            onChange={imageUpload}
-                          /> */}
                           <input
                             type="file"
                             onChange={(event) => {

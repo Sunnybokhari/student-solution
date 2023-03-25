@@ -162,7 +162,7 @@ const McqAttempt = () => {
     try {
       let correctAnswers = [];
       let wrongAnswers = [];
-
+      let obtainedMarks = 0;
       questions.forEach((question, index) => {
         if (question.correctOption === selectedOptions[index]) {
           correctAnswers.push(question);
@@ -171,6 +171,7 @@ const McqAttempt = () => {
         }
       });
 
+      obtainedMarks = correctAnswers.length;
       let verdict = "Pass";
       // if (correctAnswers.length < examData.passingMarks) {
       //   verdict = "Fail";
@@ -186,6 +187,7 @@ const McqAttempt = () => {
         exam: params.id,
         result: tempResult,
         user: user._id,
+        obtainedMarks: obtainedMarks,
       });
       if (response.success) {
         setView("result");

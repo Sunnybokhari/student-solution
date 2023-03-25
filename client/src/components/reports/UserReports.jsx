@@ -6,7 +6,7 @@ import {
   getAllReportsByUserT,
   getReportById,
 } from "../../apiCalls/theoryReports";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import moment from "moment";
 import Navbar from "../home/Navbar";
 import Card from "react-bootstrap/Card";
@@ -14,6 +14,10 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../home/Footer";
+import LineChart from "./charts/LineChart";
+import { Line } from "react-chartjs-2";
+import Chart from "chart.js/auto";
+import { UserData } from "./Data";
 
 const { TabPane } = Tabs;
 
@@ -99,6 +103,11 @@ function UserReports() {
       render: (text, record) => <>{record.exam.totalMarks}</>,
     },
     {
+      title: "Obtained Marks",
+      dataIndex: "obtainedMarks",
+      render: (text, record) => <>{record.obtainedMarks}</>,
+    },
+    {
       title: "Action",
       dataIndex: "action",
       render: (text, record) => (
@@ -143,7 +152,139 @@ function UserReports() {
     getData();
     getDataT();
   }, []);
+  console.log(reportsData[0]?.obtainedMarks);
+  // const [userReport, setUserReport] = useState({
+  //   labels: reportsData.map((data) => data?.createdAt),
+  //   datasets: [
+  //     {
+  //       label: "Marks Obtained",
+  //       data: reportsData.map((data) => data?.obtainedMarks),
+  //       backgroundColor: [
+  //         "rgba(75,192,192,1)",
+  //         "#ecf0f1",
+  //         "#50AF95",
+  //         "#f3ba2f",
+  //         "#2a71d0",
+  //       ],
+  //       borderColor: "black",
+  //       borderWidth: 2,
+  //     },
+  //   ],
+  // });
+  // const [userReport, setUserData] = useState({
+  //   labels: UserData.map((data) => data.year),
+  //   datasets: [
+  //     {
+  //       label: "Users Gained",
+  //       data: UserData.map((data) => data.userGain),
+  //       backgroundColor: [
+  //         "rgba(75,192,192,1)",
+  //         "#ecf0f1",
+  //         "#50AF95",
+  //         "#f3ba2f",
+  //         "#2a71d0",
+  //       ],
+  //       borderColor: "black",
+  //       borderWidth: 2,
+  //     },
+  //   ],
+  // });
+  // const labels = reportsData.map((data) => {
+  //   // console.log(data.createdAt);
+  //   return moment(data.createdAt).format("MMM D, YYYY");
+  // });
+  // const data = reportsData.map((data) => {
+  //   // console.log(data.obtainedMarks);
+  //   return data.obtainedMarks;
+  // });
 
+  // const [userReport, setUserReport] = useState({
+  //   labels: UserData.map((data) => data.year),
+
+  //   datasets: [
+  //     {
+  //       label: "Marks Obtained",
+  //       data: reportsData.map((data) => data.obtainedMarks),
+  //       backgroundColor: [
+  //         "rgba(75,192,192,1)",
+  //         "#ecf0f1",
+  //         "#50AF95",
+  //         "#f3ba2f",
+  //         "#2a71d0",
+  //       ],
+  //       borderColor: "black",
+  //       borderWidth: 2,
+  //     },
+  //   ],
+  // });
+  const labels = reportsData
+    .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
+    .reverse();
+  const data = reportsData
+    .map((data) => parseInt(data.obtainedMarks))
+    .reverse();
+
+  const [userReport, setUserReport] = useState({
+    labels: labels,
+    datasets: [
+      {
+        label: "MCQ Marks Obtained",
+        data: data,
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+        borderColor: "black",
+        borderWidth: 2,
+      },
+    ],
+  });
+  useEffect(() => {
+    setUserReport((prevState) => ({
+      ...prevState,
+      labels,
+      datasets: [{ ...prevState.datasets[0], data }],
+    }));
+  }, [reportsData]);
+
+  const labelsT = reportsDataT
+    .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
+    .reverse();
+  const dataT = reportsDataT
+    .map((data) => parseInt(data.obtainedMarks))
+    .reverse();
+
+  const [userReportT, setUserReportT] = useState({
+    labels: labelsT,
+    datasets: [
+      {
+        label: "Theory Marks Obtained",
+        data: dataT,
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+        borderColor: "black",
+        borderWidth: 2,
+      },
+    ],
+  });
+
+  useEffect(() => {
+    setUserReportT((prevState) => ({
+      ...prevState,
+      labels: labelsT,
+      datasets: [{ ...prevState.datasets[0], data: dataT }],
+    }));
+  }, [reportsDataT]);
+
+  console.log(userReportT);
   return (
     <Container>
       <Navbar />
@@ -155,6 +296,14 @@ function UserReports() {
           </TabPane>
           <TabPane tab="Theory Exams" key="2">
             <Table columns={columnsT} dataSource={reportsDataT} />
+          </TabPane>
+          <TabPane tab="Analytics" key="3">
+            <div style={{ width: 700 }}>
+              <Line data={userReport} />
+            </div>
+            <div style={{ width: 700 }}>
+              <Line data={userReportT} />
+            </div>
           </TabPane>
         </Tabs>
       </Wrapper>

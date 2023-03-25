@@ -14,6 +14,10 @@ const reportSchema = new mongoose.Schema(
       type: Object,
       required: true,
     },
+    obtainedMarks: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,

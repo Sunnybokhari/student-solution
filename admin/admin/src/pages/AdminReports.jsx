@@ -4,6 +4,42 @@ import { getAllReports } from "../apiCalls/reports";
 import { useEffect } from "react";
 import moment from "moment";
 import Header from "../components/home/Header";
+import styled from "styled-components";
+import { Col, Row } from "react-bootstrap";
+
+const Container = styled.div`
+  background-color: whitesmoke;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  overflow: auto;
+`;
+const Wrapper = styled.div`
+  width: 70%;
+  margin: auto;
+  background-color: white;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  border-radius: 15px;
+`;
+
+const Heading = styled.h1`
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid gray;
+  line-height: 0px;
+  margin-bottom: 100px;
+  text-decoration: none;
+  padding-top: 100px;
+`;
+const HeadingText = styled.span`
+  background-color: whitesmoke;
+  padding: 20px 40px;
+  font-weight: lighter;
+`;
 
 function AdminReports() {
   const [reportsData, setReportsData] = React.useState([]);
@@ -66,13 +102,22 @@ function AdminReports() {
   }, []);
 
   return (
-    <div>
+    <Container>
       <Header />
-      <h1>Reports</h1>
-      <div className="divider"></div>
 
-      <Table columns={columns} dataSource={reportsData} className="mt-2" />
-    </div>
+      <Wrapper>
+        <Row style={{ display: "flex", justifyContent: "space-between" }}>
+          <Col sm={4}>
+            <h1 style={{ margin: 10 }}>Reports</h1>
+          </Col>
+        </Row>
+
+        <div className="divider"></div>
+        <Row>
+          <Table columns={columns} dataSource={reportsData} className="mt-2" />
+        </Row>
+      </Wrapper>
+    </Container>
   );
 }
 

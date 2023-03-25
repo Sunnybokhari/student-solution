@@ -7,6 +7,21 @@ import Header from "../home/Header";
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { getUserInfo } from "../../apiCalls/teachers";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background-color: whitesmoke;
+  height: 100vh;
+`;
+
+const Wrapper = styled.div`
+  width: 70%;
+  margin: auto;
+  margin-top: 100px;
+  background-color: white;
+  margin-bottom: 100px;
+  border-radius: 15px;
+`;
 
 function ListOfExams() {
   const [reportsData, setReportsData] = React.useState([]);
@@ -86,47 +101,6 @@ function ListOfExams() {
     }
   };
 
-  // useEffect(() => {
-  //   getData();
-  //   getTeacherData();
-
-  //   console.log(`teacherData._id: ${teacherData._id}`);
-  //   reportsData.forEach((report) => {
-  //     console.log(
-  //       `preferences for "${report.examName}": ${report.preferences}`
-  //     );
-  //   });
-  // }, []);
-
-  // const filteredExams = reportsData.filter((exam) => {
-  //   return (
-  //     exam.exam.subject === teacherData.subject &&
-  //     exam.preferences &&
-  //     exam.preferences.includes(teacherData._id)
-  //   );
-  //   // return report.preferences.includes(teacherData._id);
-  // });
-
-  // useEffect(() => {
-  //   getData();
-  //   getTeacherData();
-  // }, []);
-
-  // const [filteredExams, setFilteredExams] = useState([]);
-
-  // useEffect(() => {
-  //   if (reportsData.length > 0 && teacherData._id) {
-  //     const filteredExams = reportsData.filter((exam) => {
-  //       return (
-  //         exam.exam.subject === teacherData.subject &&
-  //         exam.preferences &&
-  //         exam.preferences.includes(teacherData._id)
-  //       );
-  //     });
-  //     setFilteredExams(filteredExams);
-  //   }
-  // }, [reportsData, teacherData]);
-
   useEffect(() => {
     getData();
     getTeacherData();
@@ -145,13 +119,15 @@ function ListOfExams() {
   }, [reportsData, teacherData]);
 
   return (
-    <div>
+    <Container>
       <Header />
-      <h1>List of Exams</h1>
-      <div className="divider"></div>
+      <Wrapper>
+        <h1 style={{ margin: 10 }}>List of Exams</h1>
+        <div className="divider"></div>
 
-      <Table columns={columns} dataSource={filteredExams} className="mt-2" />
-    </div>
+        <Table columns={columns} dataSource={filteredExams} className="mt-2" />
+      </Wrapper>
+    </Container>
   );
 }
 

@@ -4,7 +4,42 @@ import { getAllUsers } from "../apiCalls/teachers";
 import { useEffect } from "react";
 import moment from "moment";
 import Header from "../components/home/Header";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background-color: whitesmoke;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  overflow: auto;
+`;
+const Wrapper = styled.div`
+  width: 70%;
+  margin: auto;
+  background-color: white;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  border-radius: 15px;
+`;
+
+const Heading = styled.h1`
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid gray;
+  line-height: 0px;
+  margin-bottom: 100px;
+  text-decoration: none;
+  padding-top: 100px;
+`;
+const HeadingText = styled.span`
+  background-color: whitesmoke;
+  padding: 20px 40px;
+  font-weight: lighter;
+`;
 
 function ManageTeachers() {
   const [teachersData, setTeachersData] = React.useState([]);
@@ -62,20 +97,29 @@ function ManageTeachers() {
   }, []);
 
   return (
-    <div>
+    <Container>
       <Header />
-      <div className="margin-10">
-        <h1>Teachers</h1>
-        <div className="d-flex j-end ">
-          <Button className="margin-right-20" href="/teachersignup">
-            Add Teacher
-          </Button>
-        </div>
-        <div className="divider"></div>
+      {/* <Heading>
+        <HeadingText>Teachers</HeadingText>
+      </Heading> */}
+      <Wrapper>
+        <Row style={{ display: "flex", justifyContent: "space-between" }}>
+          <Col sm={4}>
+            <h1 style={{ margin: 10 }}>Teachers</h1>
+          </Col>
+          <Col sm={2}>
+            <Button style={{ marginTop: 20 }} href="/teachersignup">
+              Add Teacher
+            </Button>
+          </Col>
+        </Row>
 
-        <Table columns={columns} dataSource={teachersData} className="mt-2" />
-      </div>
-    </div>
+        <div className="divider"></div>
+        <Row>
+          <Table columns={columns} dataSource={teachersData} className="mt-2" />
+        </Row>
+      </Wrapper>
+    </Container>
   );
 }
 

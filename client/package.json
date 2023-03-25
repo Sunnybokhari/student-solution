@@ -19,7 +19,7 @@
     "react": "^16.14.0",
     "react-bootstrap": "^2.5.0",
     "react-bootstrap-icons": "^1.9.1",
-    "react-chartjs-2": "^5.2.0",
+    "react-chartjs-2": "^3.0.3",
     "react-dom": "^16.14.0",
     "react-icons": "^4.6.0",
     "react-moment": "^1.1.3",

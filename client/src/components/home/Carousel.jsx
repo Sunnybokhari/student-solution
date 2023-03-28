@@ -23,11 +23,11 @@ const Caro = () => {
     }
   };
   return (
-    <Carousel variant="light" className="d-block h-50">
+    <Carousel variant="light">
       <Carousel.Item interval={2000}>
         <img
-          className="d-flex w-100 carouselimg"
-          src="https://thumbs.dreamstime.com/b/working-hard-young-modern-businessman-using-digital-tablet-laptop-working-office-working-hard-148231172.jpg"
+          className="d-flex  carouselimg"
+          src="https://images.pexels.com/photos/4974914/pexels-photo-4974914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt="First slide"
         />
         <Carousel.Caption>
@@ -51,7 +51,7 @@ const Caro = () => {
       </Carousel.Item>
       <Carousel.Item interval={2000}>
         <img
-          className="d-flex w-100 carouselimg"
+          className="d-flex  carouselimg"
           src="https://images.unsplash.com/photo-1513258496099-48168024aec0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
           alt="Second slide"
         />
@@ -75,7 +75,7 @@ const Caro = () => {
       </Carousel.Item>
       <Carousel.Item interval={2000}>
         <img
-          className="d-flex w-100 carouselimg"
+          className="d-flex  carouselimg"
           src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&w=1600"
           alt="Third slide"
         />

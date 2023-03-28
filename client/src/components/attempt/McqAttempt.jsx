@@ -715,9 +715,9 @@ const McqAttempt = () => {
 
       obtainedMarks = correctAnswers.length;
       let verdict = "Pass";
-      // if (correctAnswers.length < examData.passingMarks) {
-      //   verdict = "Fail";
-      // }
+      if (correctAnswers.length < examData.totalMarks / 2) {
+        verdict = "Fail";
+      }
 
       const tempResult = {
         correctAnswers,
@@ -901,9 +901,7 @@ const McqAttempt = () => {
                 </QuestionContainer>
               </Col>
               <Col xs={2} className="timerContainer">
-                <span className="timer">
-                  {secondsLeft} minutes {timeRemaining}
-                </span>
+                <span className="timer">{secondsLeft} minutes</span>
               </Col>
             </Row>
           </Row>

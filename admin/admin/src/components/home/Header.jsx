@@ -24,7 +24,10 @@ const Header = () => {
       {[false].map((expand) => (
         <Navbar key={expand} bg="dark" expand={expand} className="mb-3">
           <Container fluid>
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+            <Navbar.Toggle
+              style={{ backgroundColor: "#5b5b5b" }}
+              aria-controls={`offcanvasNavbar-expand-${expand}`}
+            />
             <Navbar.Brand className="color-w" href="/home">
               Admin Dashboard
             </Navbar.Brand>

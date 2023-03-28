@@ -81,8 +81,8 @@ const Advertisment = () => {
               <Col sm={8}>
                 <h4>Automated Marking</h4>
                 <p className="adP">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Voluptas quod exercitationem
+                  Save time and increase accuracy with our automated marking
+                  system.
                 </p>
               </Col>
             </Point>
@@ -97,8 +97,8 @@ const Advertisment = () => {
               <Col sm={8}>
                 <h4>Expert Teachers</h4>
                 <p className="adP">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Voluptas quod exercitationem
+                  Benefit from the expertise of our world-class teachers and
+                  take your learning to the next level.
                 </p>
               </Col>
             </Point>
@@ -113,8 +113,8 @@ const Advertisment = () => {
               <Col sm={8}>
                 <h4>Student Analytics</h4>
                 <p className="adP">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Voluptas quod exercitationem
+                  Maximize student success with our comprehensive student
+                  analytics system.
                 </p>
               </Col>
             </Point>
@@ -129,8 +129,8 @@ const Advertisment = () => {
               <Col sm={8}>
                 <h4>Topical Papers</h4>
                 <p className="adP">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Voluptas quod exercitationem
+                  Learn at your own pace with our flexible online lecture
+                  platform.
                 </p>
               </Col>
             </Point>

@@ -15,7 +15,8 @@ import { subscriptions } from "../apiCalls/subs";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Footer from "../components/home/Footer";
-
+import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { Breadcrumb } from "antd";
 const { TabPane } = Tabs;
 
 const Container = styled.div``;
@@ -199,7 +200,39 @@ const Profile = () => {
     <Container>
       <Navbar />
       <div style={{ height: 20 }}></div>
+
       <Wrapper>
+        <Breadcrumb
+          style={{ color: "black" }}
+          items={[
+            {
+              href: "",
+              title: <HomeOutlined />,
+            },
+            {
+              href: "",
+              title: (
+                <>
+                  <UserOutlined />
+                  <span>Application List</span>
+                </>
+              ),
+            },
+            {
+              title: "Application",
+            },
+          ]}
+        />
+        <Breadcrumb separator=">" style={{ margin: "10px 0px" }}>
+          <Breadcrumb.Item>
+            <HomeOutlined /> Home
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            {" "}
+            <UserOutlined />
+            Profile
+          </Breadcrumb.Item>
+        </Breadcrumb>
         <Tabs defaultActiveKey="1">
           <TabPane tab="User Information " key="1">
             {userData && (
@@ -225,6 +258,18 @@ const Profile = () => {
                 <Form.Item className="" name="password" label="Password">
                   <Input
                     type="password"
+                    className="site-form-item-icon forminput"
+                  />
+                </Form.Item>
+                <Form.Item
+                  className=""
+                  name="availableAttempts"
+                  label="Remaining Attempts for Theory Exams"
+                >
+                  <Input
+                    style={{ color: "black" }}
+                    disabled
+                    type="text"
                     className="site-form-item-icon forminput"
                   />
                 </Form.Item>

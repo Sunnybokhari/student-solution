@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { message } from "antd";
 import { getUserInfo, logoutUser } from "./../../apiCalls/users";
 import { useDispatch, useSelector } from "react-redux";
@@ -101,11 +101,47 @@ const Navbar = () => {
   const userProfile = () => {
     history.push("/userprofile");
   };
+  const [activeItem, setActiveItem] = useState("/");
+
+  const homeRef = useRef(null);
+  const mcqRef = useRef(null);
+  const theoryRef = useRef(null);
+  const reportsRef = useRef(null);
+  const { id } = useParams();
+  useEffect(() => {
+    const { pathname } = location;
+    setActiveItem(pathname);
+
+    if (homeRef.current && pathname === "/") {
+      homeRef.current.setAttribute("aria-current", "page");
+    } else if (mcqRef.current && pathname === "/mcqpapers") {
+      mcqRef.current.setAttribute("aria-current", "page");
+    } else if (theoryRef.current && pathname === "/theorypapers") {
+      theoryRef.current.setAttribute("aria-current", "page");
+    } else if (reportsRef.current && pathname === "/reports") {
+      reportsRef.current.setAttribute("aria-current", "page");
+    } else if (
+      location.pathname.includes("/theoryreport/") &&
+      location.pathname.includes(id)
+    ) {
+      reportsRef.current.setAttribute("aria-current", "page");
+    } else if (
+      location.pathname.includes("/mcqattempt/") &&
+      location.pathname.includes(id)
+    ) {
+      mcqRef.current.setAttribute("aria-current", "page");
+    } else if (
+      location.pathname.includes("/theoryattempt/") &&
+      location.pathname.includes(id)
+    ) {
+      theoryRef.current.setAttribute("aria-current", "page");
+    }
+  }, [location]);
+
   return (
     <Container>
       <Wrapper>
         <Left>
-          {/* <Link to="/" style={{ textDecoration: "none", color: "black" }}> */}
           <Logo
             onClick={() => {
               history.push("/");
@@ -113,117 +149,54 @@ const Navbar = () => {
           >
             Student Solution
           </Logo>
-          {/* </Link> */}
         </Left>
         <Center>
-          <Nav
-            variant="pills"
-            defaultActiveKey="/"
-            activeKey={location.pathname}
-          >
+          <Nav variant="pills">
             <Nav.Item
               style={{ cursor: "pointer" }}
+              ref={homeRef}
               onClick={() => {
                 history.push("/");
               }}
               className="navlink"
             >
-              {/* <Link to="/" className="nav-link"> */}
               HOME
-              {/* </Link> */}
             </Nav.Item>
             <Nav.Item
               style={{ cursor: "pointer" }}
+              ref={mcqRef}
               onClick={() => {
                 history.push("/mcqpapers");
               }}
               className="navlink"
             >
-              {/* <Link to="/mcqpapers" className="nav-link"> */}
               MCQ EXAMS
-              {/* </Link> */}
-            </Nav.Item>{" "}
+            </Nav.Item>
             <Nav.Item
               style={{ cursor: "pointer" }}
               className="navlink"
+              ref={theoryRef}
               onClick={() => {
                 subscriptionAccessTheory();
               }}
             >
-              {/* <Link to=""  > */}
               THEORY EXAMS
-              {/* </Link> */}
             </Nav.Item>
-            {/* <ButtonGroup> */}
-            {/* <Button
-            variant="outline-primary"
-            onClick={() => {
-              history.push("/");
-            }}
-          >
-            HOME
-          </Button>
-          <Button
-            style={{ marginLeft: 5 }}
-            variant="outline-primary"
-            onClick={() => {
-              history.push("/mcqpapers");
-            }}
-          >
-            MCQ EXAMS
-          </Button>
-          <Button
-            style={{ marginLeft: 5 }}
-            variant="outline-primary"
-            onClick={() => {
-              subscriptionAccessTheory();
-            }}
-          >
-            THEORY EXAMS
-          </Button>
-          <Button
-            style={{ marginLeft: 5 }}
-            variant="outline-primary"
-            onClick={() => {
-              history.push("/reports");
-            }}
-          >
-            REPORTS
-          </Button> */}
-            {/* </ButtonGroup> */}
             <Nav.Item
               style={{ cursor: "pointer" }}
+              ref={reportsRef}
               onClick={() => {
                 history.push("/reports");
               }}
               className="navButton navlink"
             >
-              {/* <Link to="/reports" className="nav-link"> */}
               REPORTS
-              {/* </Link> */}
             </Nav.Item>
           </Nav>
         </Center>
 
         {user ? (
           <Right>
-            {/* <Button
-              onClick={() => {
-                userProfile();
-              }}
-              variant="outline-primary me-2"
-            >
-              {user.name}
-            </Button>
-            <Button
-              variant="outline-primary"
-              onClick={() => {
-                userLogout();
-              }}
-            >
-              Logout
-            </Button> */}
-
             <Dropdown className="d-inline mx-2">
               <Dropdown.Toggle
                 variant="outline-primary"

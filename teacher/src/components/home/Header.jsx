@@ -29,7 +29,7 @@ const Header = () => {
         <Navbar key={expand} bg="dark" expand={expand} className="mb-3">
           <Container fluid>
             <Navbar.Toggle
-              style={{ color: "white" }}
+              style={{ backgroundColor: "#5b5b5b" }}
               aria-controls={`offcanvasNavbar-expand-${expand}`}
             />
             <Navbar.Brand style={{ color: "white" }} href="/home">

@@ -16,6 +16,8 @@ const Center = styled.div`
 const Para = styled.div`
   width: 25%;
   margin-right: 20px;
+  border-radius: 5px;
+  /* box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.15); */
 `;
 
 const Advertisment2 = () => {
@@ -24,19 +26,24 @@ const Advertisment2 = () => {
       <Center>
         <Para>
           <h4 className="adH">Marking</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          <p>
+            Say goodbye to tedious grading with our efficient marking system.
+          </p>
         </Para>
         <Para>
           <h4 className="adH">Analytics</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          <p>Track student performance and identify areas for improvement.</p>
         </Para>
         <Para>
           <h4 className="adH">Experts</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          <p>Get personalized guidance and support from our team.</p>
         </Para>
         <Para>
           <h4 className="adH">Papers</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          <p>
+            Increase your chances of success with our comprehensive past paper
+            resources.
+          </p>
         </Para>
       </Center>
     </Container>

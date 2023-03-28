@@ -15,10 +15,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../home/Footer";
-import LineChart from "./charts/LineChart";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
-import { UserData } from "./Data";
 
 const { TabPane } = Tabs;
 

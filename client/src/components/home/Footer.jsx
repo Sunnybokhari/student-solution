@@ -10,6 +10,7 @@ import { Envelope } from "react-bootstrap-icons";
 const Container = styled.div`
   display: flex;
   background-color: #3e3e3e;
+  bottom: 0;
 `;
 
 const Left = styled.div`
@@ -130,7 +131,7 @@ const Footer = () => {
         </ContactItem>
         <ContactItem>
           <Envelope size={20} />
-          contact@SCANDAL.com
+          contact@Studentsolution.com
         </ContactItem>
         <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
       </Right>

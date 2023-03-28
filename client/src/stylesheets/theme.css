@@ -3,10 +3,11 @@
   --secondary: #ff5722;
   --success: #6fbf71;
   --info: #00bcd4;
-  --warning: #e47943;
+  --warning: #f88000;
   --danger: #f44336;
   --light: #f1f1f1;
   --dark: #212121;
+  --yellow: #fdfd00;
 }
 
 .bg-primary{
@@ -24,5 +25,13 @@
 }
 
 .bg-error{
+    background-color: var(--warning);
+}
+
+.bg-yellow{
+    background-color: var(--yellow);
+}
+
+.bg-orange{
     background-color: var(--warning);
 }

@@ -14,7 +14,7 @@ export const addReport = async (payload) => {
 };
 
 // get all reports
-export const getAllReports = async (filters) => {
+export const getAllReportsT = async (filters) => {
   try {
     const response = await axiosInstance.post(
       "/api/theoryreports/get-all-reports"

@@ -11,7 +11,14 @@
     background-color: white;
 }
 
+.reviewAnswers{
+    margin: auto;
+    max-width: 100%;
+}
 
+.margin-auto{
+    margin: auto;
+}
 /* Navbar Component */
 
 .navL{

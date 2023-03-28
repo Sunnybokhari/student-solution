@@ -2,7 +2,13 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
-function Instructions({ examData, setView, startTimer }) {
+function Instructions({
+  examData,
+  setView,
+  startTimer,
+  startAnswerTimer,
+  setOverTimeAnswers,
+}) {
   const navigate = useHistory();
   return (
     <div className="instructionsWrapper">
@@ -42,6 +48,8 @@ function Instructions({ examData, setView, startTimer }) {
             className="instructionsButton"
             onClick={() => {
               startTimer();
+              startAnswerTimer();
+              setOverTimeAnswers([]);
               setView("questions");
             }}
           >

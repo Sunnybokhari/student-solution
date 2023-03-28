@@ -1,10 +1,11 @@
 import React from "react";
 import { message, Modal, Table, Tabs } from "antd";
 import { Button } from "react-bootstrap";
-import { getAllReportsByUser } from "../../apiCalls/reports";
+import { getAllReports, getAllReportsByUser } from "../../apiCalls/reports";
 import {
   getAllReportsByUserT,
   getReportById,
+  getAllReportsT,
 } from "../../apiCalls/theoryReports";
 import { useEffect, useState } from "react";
 import moment from "moment";
@@ -26,7 +27,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 70%;
+  width: 80%;
   margin: auto;
   margin-top: 100px;
   background-color: white;
@@ -42,6 +43,8 @@ function UserReports() {
   const [reports = [], setReports] = React.useState([]);
   const [reportId, setReportId] = React.useState(null);
   const history = useHistory();
+  const [globalReportsData, setGlobalReportsData] = React.useState([]);
+  const [globalReportsDataT, setGlobalReportsDataT] = React.useState([]);
 
   const columns = [
     {
@@ -148,63 +151,50 @@ function UserReports() {
     }
   };
 
+  const getGlobalData = async () => {
+    try {
+      const response = await getAllReports();
+      if (response.success) {
+        setGlobalReportsData(response.data);
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
+  const getGlobalDataT = async () => {
+    try {
+      const response = await getAllReportsT();
+      if (response.success) {
+        setGlobalReportsDataT(response.data);
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
   useEffect(() => {
     getData();
     getDataT();
+    getGlobalData();
+    getGlobalDataT();
   }, []);
-  console.log(reportsData[0]?.obtainedMarks);
-  // const [userReport, setUserReport] = useState({
-  //   labels: reportsData.map((data) => data?.createdAt),
-  //   datasets: [
-  //     {
-  //       label: "Marks Obtained",
-  //       data: reportsData.map((data) => data?.obtainedMarks),
-  //       backgroundColor: [
-  //         "rgba(75,192,192,1)",
-  //         "#ecf0f1",
-  //         "#50AF95",
-  //         "#f3ba2f",
-  //         "#2a71d0",
-  //       ],
-  //       borderColor: "black",
-  //       borderWidth: 2,
-  //     },
-  //   ],
-  // });
-  // const [userReport, setUserData] = useState({
-  //   labels: UserData.map((data) => data.year),
-  //   datasets: [
-  //     {
-  //       label: "Users Gained",
-  //       data: UserData.map((data) => data.userGain),
-  //       backgroundColor: [
-  //         "rgba(75,192,192,1)",
-  //         "#ecf0f1",
-  //         "#50AF95",
-  //         "#f3ba2f",
-  //         "#2a71d0",
-  //       ],
-  //       borderColor: "black",
-  //       borderWidth: 2,
-  //     },
-  //   ],
-  // });
-  // const labels = reportsData.map((data) => {
-  //   // console.log(data.createdAt);
-  //   return moment(data.createdAt).format("MMM D, YYYY");
-  // });
-  // const data = reportsData.map((data) => {
-  //   // console.log(data.obtainedMarks);
-  //   return data.obtainedMarks;
-  // });
+
+  // const labels = reportsData
+  //   .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
+  //   .reverse();
+  // const data = reportsData
+  //   .map((data) => parseInt(data.obtainedMarks))
+  //   .reverse();
 
   // const [userReport, setUserReport] = useState({
-  //   labels: UserData.map((data) => data.year),
-
+  //   labels: labels,
   //   datasets: [
   //     {
-  //       label: "Marks Obtained",
-  //       data: reportsData.map((data) => data.obtainedMarks),
+  //       label: "MCQ Marks Obtained",
+  //       data: data,
   //       backgroundColor: [
   //         "rgba(75,192,192,1)",
   //         "#ecf0f1",
@@ -217,74 +207,183 @@ function UserReports() {
   //     },
   //   ],
   // });
-  const labels = reportsData
-    .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
-    .reverse();
-  const data = reportsData
-    .map((data) => parseInt(data.obtainedMarks))
-    .reverse();
+  // useEffect(() => {
+  //   setUserReport((prevState) => ({
+  //     ...prevState,
+  //     labels,
+  //     datasets: [{ ...prevState.datasets[0], data }],
+  //   }));
+  // }, [reportsData]);
 
-  const [userReport, setUserReport] = useState({
-    labels: labels,
-    datasets: [
-      {
-        label: "MCQ Marks Obtained",
-        data: data,
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
-        borderColor: "black",
-        borderWidth: 2,
-      },
-    ],
+  //
+  const colors = {
+    Biology: "rgba(75,192,192,1)",
+    Chemistry: "#00d11f",
+    Economics: "#dc0b0b",
+    Business: "#f3ba2f",
+    English: "#2a71d0",
+    Accounting: "#060080",
+    Mathematics: "#ca008e",
+    Physics: "#7f07e8",
+    Psychology: "#f78400",
+  };
+
+  const [userReports, setUserReports] = useState({
+    labels: [],
+    datasets: [],
   });
+
   useEffect(() => {
-    setUserReport((prevState) => ({
-      ...prevState,
-      labels,
-      datasets: [{ ...prevState.datasets[0], data }],
-    }));
+    const subjectData = {};
+
+    reportsData.forEach((data) => {
+      const subject = data.exam.subject;
+      if (!subjectData[subject]) {
+        subjectData[subject] = {
+          label: `${subject}`,
+          data: [],
+          backgroundColor: colors[subject],
+          borderColor: colors[subject],
+          borderWidth: 1,
+        };
+      }
+      subjectData[subject].data.push(parseInt(data.obtainedMarks));
+    });
+
+    const datasets = Object.values(subjectData);
+
+    datasets.forEach((dataset) => {
+      dataset.data.reverse();
+    });
+
+    const labels = reportsData
+      .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
+      .reverse();
+
+    setUserReports({
+      labels: labels,
+      datasets: datasets,
+    });
   }, [reportsData]);
+  //
 
-  const labelsT = reportsDataT
-    .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
-    .reverse();
-  const dataT = reportsDataT
-    .map((data) => parseInt(data.obtainedMarks))
-    .reverse();
-
-  const [userReportT, setUserReportT] = useState({
-    labels: labelsT,
-    datasets: [
-      {
-        label: "Theory Marks Obtained",
-        data: dataT,
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
-        borderColor: "black",
-        borderWidth: 2,
-      },
-    ],
+  const [userReportsT, setUserReportsT] = useState({
+    labels: [],
+    datasets: [],
   });
 
   useEffect(() => {
-    setUserReportT((prevState) => ({
-      ...prevState,
-      labels: labelsT,
-      datasets: [{ ...prevState.datasets[0], data: dataT }],
-    }));
+    const subjectData = {};
+
+    reportsDataT.forEach((data) => {
+      const subject = data.exam.subject;
+      if (!subjectData[subject]) {
+        subjectData[subject] = {
+          label: `${subject}`,
+          data: [],
+          backgroundColor: colors[subject],
+          borderColor: colors[subject],
+          borderWidth: 1,
+        };
+      }
+      subjectData[subject].data.push(parseInt(data.obtainedMarks));
+    });
+
+    const datasets = Object.values(subjectData);
+
+    datasets.forEach((dataset) => {
+      dataset.data.reverse();
+    });
+
+    const labels = reportsDataT
+      .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
+      .reverse();
+
+    setUserReportsT({
+      labels: labels,
+      datasets: datasets,
+    });
   }, [reportsDataT]);
 
-  console.log(userReportT);
+  //
+
+  const [globalReports, setGlobalReports] = useState({
+    labels: [],
+    datasets: [],
+  });
+
+  useEffect(() => {
+    const subjectData = {};
+
+    globalReportsData.forEach((data) => {
+      const subject = data.exam.subject;
+      if (!subjectData[subject]) {
+        subjectData[subject] = {
+          label: `${subject}`,
+          data: [],
+          backgroundColor: colors[subject],
+          borderColor: colors[subject],
+          borderWidth: 1,
+        };
+      }
+      subjectData[subject].data.push(parseInt(data.obtainedMarks));
+    });
+
+    const datasets = Object.values(subjectData);
+
+    datasets.forEach((dataset) => {
+      dataset.data.reverse();
+    });
+
+    const labels = globalReportsData
+      .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
+      .reverse();
+
+    setGlobalReports({
+      labels: labels,
+      datasets: datasets,
+    });
+  }, [globalReportsData]);
+
+  //
+
+  const [globalReportsT, setGlobalReportsT] = useState({
+    labels: [],
+    datasets: [],
+  });
+
+  useEffect(() => {
+    const subjectData = {};
+
+    globalReportsDataT.forEach((data) => {
+      const subject = data.exam.subject;
+      if (!subjectData[subject]) {
+        subjectData[subject] = {
+          label: `${subject}`,
+          data: [],
+          backgroundColor: colors[subject],
+          borderColor: colors[subject],
+          borderWidth: 1,
+        };
+      }
+      subjectData[subject].data.push(parseInt(data.obtainedMarks));
+    });
+
+    const datasets = Object.values(subjectData);
+
+    datasets.forEach((dataset) => {
+      dataset.data.reverse();
+    });
+
+    const labels = globalReportsDataT
+      .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
+      .reverse();
+
+    setGlobalReportsT({
+      labels: labels,
+      datasets: datasets,
+    });
+  }, [globalReportsDataT]);
   return (
     <Container>
       <Navbar />
@@ -298,11 +397,32 @@ function UserReports() {
             <Table columns={columnsT} dataSource={reportsDataT} />
           </TabPane>
           <TabPane tab="Analytics" key="3">
-            <div style={{ width: 700 }}>
-              <Line data={userReport} />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ width: 700 }}>
+                <h2>Your MCQ Exams</h2>
+                <Line data={userReports} />
+              </div>
+              <div style={{ width: 700 }}>
+                <h2>Global MCQ Exams</h2>
+                <Line data={globalReports} />
+              </div>
             </div>
-            <div style={{ width: 700 }}>
-              <Line data={userReportT} />
+            <br />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: 50,
+              }}
+            >
+              <div style={{ width: 700 }}>
+                <h2>Your Theory Exams</h2>
+                <Line data={userReportsT} />
+              </div>
+              <div style={{ width: 700 }}>
+                <h2>Global Theory Exams</h2>
+                <Line data={globalReportsT} />
+              </div>
             </div>
           </TabPane>
         </Tabs>

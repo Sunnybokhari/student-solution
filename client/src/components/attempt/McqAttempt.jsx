@@ -901,7 +901,13 @@ const McqAttempt = () => {
                 </QuestionContainer>
               </Col>
               <Col xs={2} className="timerContainer">
-                <span className="timer">{secondsLeft} minutes</span>
+                <span className="timer">
+                  {secondsLeft} minutes{" "}
+                  <div style={{ paddingTop: 10 }}>
+                    Question {selectedQuestionIndex + 1} of{" "}
+                    {examData?.totalMarks}
+                  </div>
+                </span>
               </Col>
             </Row>
           </Row>

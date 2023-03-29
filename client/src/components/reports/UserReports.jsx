@@ -31,6 +31,9 @@ const Wrapper = styled.div`
   background-color: white;
   margin-bottom: 100px;
   border-radius: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 15px;
 `;
 
 function UserReports() {
@@ -180,40 +183,6 @@ function UserReports() {
     getGlobalDataT();
   }, []);
 
-  // const labels = reportsData
-  //   .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
-  //   .reverse();
-  // const data = reportsData
-  //   .map((data) => parseInt(data.obtainedMarks))
-  //   .reverse();
-
-  // const [userReport, setUserReport] = useState({
-  //   labels: labels,
-  //   datasets: [
-  //     {
-  //       label: "MCQ Marks Obtained",
-  //       data: data,
-  //       backgroundColor: [
-  //         "rgba(75,192,192,1)",
-  //         "#ecf0f1",
-  //         "#50AF95",
-  //         "#f3ba2f",
-  //         "#2a71d0",
-  //       ],
-  //       borderColor: "black",
-  //       borderWidth: 2,
-  //     },
-  //   ],
-  // });
-  // useEffect(() => {
-  //   setUserReport((prevState) => ({
-  //     ...prevState,
-  //     labels,
-  //     datasets: [{ ...prevState.datasets[0], data }],
-  //   }));
-  // }, [reportsData]);
-
-  //
   const colors = {
     Biology: "rgba(75,192,192,1)",
     Chemistry: "#00d11f",
@@ -395,7 +364,12 @@ function UserReports() {
             <Table columns={columnsT} dataSource={reportsDataT} />
           </TabPane>
           <TabPane tab="Analytics" key="3">
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
               <div style={{ width: 700 }}>
                 <h2>Your MCQ Exams</h2>
                 <Line data={userReports} />
@@ -405,7 +379,7 @@ function UserReports() {
                 <Line data={globalReports} />
               </div>
             </div>
-            <br />
+            <div className="divider" style={{ paddingTop: 35 }}></div>
             <div
               style={{
                 display: "flex",

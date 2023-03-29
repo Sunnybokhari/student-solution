@@ -122,29 +122,20 @@ const EditExam = () => {
 
   const questionsColumns = [
     {
+      title: "Index",
+      dataIndex: "index",
+      render: (text, record, index) => index + 1, // render the index starting from 1
+    },
+    {
       title: "Question",
       dataIndex: "name",
     },
-    {
-      title: "Correct Option",
-      dataIndex: "correctOption",
-    },
+
     {
       title: "Action",
       dataIndex: "action",
       render: (text, record) => (
         <div>
-          {/* <Button
-            className="margin-right-10"
-            type="primary"
-            size="sm"
-            onClick={() => {
-              setSelectedQuestion(record);
-              setShowAddEditQuestionModal(true);
-            }}
-          >
-            Edit
-          </Button> */}
           <Button
             className="primary"
             size="sm"

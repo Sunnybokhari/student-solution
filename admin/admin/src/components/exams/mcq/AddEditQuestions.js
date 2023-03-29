@@ -1,7 +1,15 @@
 import { Form, message, Modal, Button } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { addQuestionToExam, editQuestionById } from "../../../apiCalls/exams";
-// import { addQuestionToExam, editQuestionById } from "../../../apicalls/exams";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+import { storage } from "../../../apiCalls/firebase";
+import { v4 } from "uuid";
 
 function AddEditQuestion({
   showAddEditQuestionModal,
@@ -11,10 +19,20 @@ function AddEditQuestion({
   selectedQuestion,
   setSelectedQuestion,
 }) {
+  const [inputField, setInputField] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
+
   const onFinish = async (values) => {
+    if (inputField == null) return;
+    const imageRef = ref(storage, `questions/${inputField.name + v4()}`);
+    const snapshot = await uploadBytes(imageRef, inputField);
+    const url = await getDownloadURL(snapshot.ref);
+    setImageUrl(url);
+    console.log(url);
+
     try {
       const requiredPayload = {
-        name: values.name,
+        name: url,
         correctOption: values.correctOption,
         options: {
           A: "Option A",
@@ -57,7 +75,12 @@ function AddEditQuestion({
         }}
       >
         <Form.Item name="name" label="Question">
-          <input type="text" />
+          <input
+            type="file"
+            onChange={(event) => {
+              setInputField(event.target.files[0]);
+            }}
+          />
         </Form.Item>
         <Form.Item name="correctOption" label="Correct Option">
           <input type="text" />

@@ -101,6 +101,10 @@ const Navbar = () => {
   const userProfile = () => {
     history.push("/userprofile");
   };
+
+  const subscriptionPlan = () => {
+    history.push("/paymentplans");
+  };
   const [activeItem, setActiveItem] = useState("/");
 
   const homeRef = useRef(null);
@@ -197,7 +201,10 @@ const Navbar = () => {
 
         {user ? (
           <Right>
-            <Dropdown className="d-inline mx-2">
+            <Dropdown
+              style={{ padding: "10px 10px" }}
+              className="d-inline mx-2"
+            >
               <Dropdown.Toggle
                 variant="outline-primary"
                 id="dropdown-autoclose-true"
@@ -213,6 +220,26 @@ const Navbar = () => {
                   href="#"
                 >
                   Profile
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    subscriptionPlan();
+                  }}
+                  href="#"
+                >
+                  Subscription Plans
+                </Dropdown.Item>
+                <Dropdown.Item disabled>
+                  <span>Attempts left: </span>
+                  <span
+                    style={{
+                      border: "1px solid gray",
+                      borderRadius: "3px",
+                      padding: "1px 2px",
+                    }}
+                  >
+                    {user.availableAttempts}
+                  </span>
                 </Dropdown.Item>
                 <Dropdown.Item
                   onClick={() => {

@@ -23,7 +23,7 @@ router.post("/session", authMiddleware, async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: "https://studentsolutions.herokuapp.com",
+      success_url: "https://studentsolutions.herokuapp.com/teacherpreferences",
       cancel_url: "https://studentsolutions.herokuapp.com",
       customer: user.stripeCustomerId,
     },

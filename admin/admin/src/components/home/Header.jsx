@@ -56,8 +56,8 @@ const Header = () => {
                       Theory Papers
                     </NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Link href="/reports">Student Reports</Nav.Link>
-                  <Nav.Link href="/users">Manage Students</Nav.Link>
+                  {/* <Nav.Link href="/reports">Student Reports</Nav.Link>
+                  <Nav.Link href="/users">Manage Students</Nav.Link> */}
                   <Nav.Link href="/manageteachers">Manage Teachers</Nav.Link>
                   <Nav.Link
                     onClick={() => {

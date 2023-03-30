@@ -97,7 +97,6 @@ const Profile = () => {
           <Button
             className="primary me-2"
             size="sm"
-            // onClick={() => setPreference(record.email) }
             onClick={() => {
               subscriptionAccessTheory();
               setPreference(record.email);
@@ -230,71 +229,11 @@ const Profile = () => {
           <Breadcrumb.Item>
             {" "}
             <UserOutlined />
-            Profile
+            Teacher Preferences
           </Breadcrumb.Item>
         </Breadcrumb>
         <Tabs defaultActiveKey="1">
-          <TabPane tab="User Information " key="1">
-            {userData && (
-              <Form
-                name="normal_login"
-                className="login-form formI"
-                layout="vertical"
-                onFinish={editUser}
-                initialValues={userData}
-              >
-                <Form.Item className="" name="name" size="large" label="Name">
-                  <Input
-                    type="text"
-                    className="site-form-item-icon forminput"
-                  />
-                </Form.Item>
-                <Form.Item className="" name="email" label="Email">
-                  <Input
-                    type="email"
-                    className="site-form-item-icon forminput"
-                  />
-                </Form.Item>
-                <Form.Item className="" name="password" label="Password">
-                  <Input
-                    type="password"
-                    className="site-form-item-icon forminput"
-                  />
-                </Form.Item>
-                <Form.Item
-                  className=""
-                  name="availableAttempts"
-                  label="Remaining Attempts for Theory Exams"
-                >
-                  <Input
-                    style={{ color: "black" }}
-                    disabled
-                    type="text"
-                    className="site-form-item-icon forminput"
-                  />
-                </Form.Item>
-                <Col>
-                  <Button
-                    classname="formB"
-                    type="primary"
-                    size="large"
-                    htmlType="submit"
-                    block
-                    style={{ paddingLeft: "20px ", paddingRight: "20px " }}
-                  >
-                    Edit
-                  </Button>
-                </Col>
-              </Form>
-            )}
-          </TabPane>
-          {/* <TabPane
-            onClick={() => {
-              subscriptionAccessTheory();
-            }}
-            tab="Teacher Preferences"
-            key="2"
-          >
+          <TabPane tab="Teacher Preferences" key="1">
             <Row className="pt-2 pb-2">
               <Col sm={3}>
                 <span style={{ marginLeft: 15 }}>Class: </span>
@@ -310,7 +249,7 @@ const Profile = () => {
                   <SubjectOption value="AS">AS</SubjectOption>
                   <SubjectOption value="A2">A2</SubjectOption>
                   {/* Add options for other classes as needed */}
-          {/* </select>
+                </select>
               </Col>
               <Col sm={3} style={{ marginLeft: 5 }}>
                 <span>Subject: </span>
@@ -333,7 +272,7 @@ const Profile = () => {
                   <SubjectOption value="Psychology">Psychology</SubjectOption>
 
                   {/* Add options for other classes as needed */}
-          {/* </select>
+                </select>
               </Col>
             </Row>
             <Table
@@ -341,7 +280,7 @@ const Profile = () => {
               dataSource={filteredExams}
               className="mt-2"
             />
-          </TabPane> */}{" "}
+          </TabPane>
         </Tabs>
       </Wrapper>
       <Footer />

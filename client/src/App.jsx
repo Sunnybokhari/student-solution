@@ -29,7 +29,7 @@ import TheoryReport from "./components/reports/TheoryReport";
 import PaymentPlans from "./components/home/PaymentPlans";
 import PaymentPlan from "./pages/PaymentPlan";
 import Profile from "./pages/Profile";
-
+import TeacherPreferences from "./pages/TeacherPreferences";
 const App = () => {
   return (
     <Router>
@@ -67,6 +67,9 @@ const App = () => {
         </Route>
         <Route path="/userprofile" exact>
           <Profile />
+        </Route>
+        <Route path="/teacherpreferences" exact>
+          <TeacherPreferences />
         </Route>
       </Switch>
     </Router>

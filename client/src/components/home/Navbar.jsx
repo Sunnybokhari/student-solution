@@ -105,6 +105,9 @@ const Navbar = () => {
   const subscriptionPlan = () => {
     history.push("/paymentplans");
   };
+  const teacherPreferences = () => {
+    history.push("/teacherpreferences");
+  };
   const [activeItem, setActiveItem] = useState("/");
 
   const homeRef = useRef(null);
@@ -240,6 +243,14 @@ const Navbar = () => {
                   >
                     {user.availableAttempts}
                   </span>
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    teacherPreferences();
+                  }}
+                  href="#"
+                >
+                  Teacher Preferences
                 </Dropdown.Item>
                 <Dropdown.Item
                   onClick={() => {

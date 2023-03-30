@@ -14,7 +14,6 @@ import styled from "styled-components";
 import Footer from "../home/Footer";
 
 const Container = styled.div`
-  height: 100vh;
   background-color: whitesmoke;
 `;
 

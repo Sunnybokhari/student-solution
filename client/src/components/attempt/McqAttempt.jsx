@@ -705,6 +705,7 @@ const McqAttempt = () => {
       let wrongAnswers = [];
 
       let obtainedMarks = 0;
+      let percentage = 0;
       questions.forEach((question, index) => {
         if (question.correctOption === selectedOptions[index]) {
           correctAnswers.push(question);
@@ -714,6 +715,7 @@ const McqAttempt = () => {
       });
 
       obtainedMarks = correctAnswers.length;
+      percentage = (obtainedMarks / examData.totalMarks) * 100;
       let verdict = "Pass";
       if (correctAnswers.length < examData.totalMarks / 2) {
         verdict = "Fail";
@@ -730,6 +732,7 @@ const McqAttempt = () => {
         result: tempResult,
         user: user._id,
         obtainedMarks: obtainedMarks,
+        percentage: percentage,
       });
       if (response.success) {
         setView("result");
@@ -788,6 +791,7 @@ const McqAttempt = () => {
     }
   }, []);
 
+  console.log(selectedOptions);
   return (
     <Container>
       <Navbar />
@@ -900,14 +904,53 @@ const McqAttempt = () => {
                   </QuestionOptionsContainer>
                 </QuestionContainer>
               </Col>
-              <Col xs={2} className="timerContainer">
-                <span className="timer">
-                  {secondsLeft} minutes{" "}
-                  <div style={{ paddingTop: 10 }}>
-                    Question {selectedQuestionIndex + 1} of{" "}
-                    {examData?.totalMarks}
-                  </div>
-                </span>
+              <Col xs={2}>
+                <Col xs={12} className="timerContainer">
+                  <span className="timer">
+                    <img
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginRight: "5px",
+                      }}
+                      src="https://img.icons8.com/ios/50/1A1A1A/time--v1.png"
+                    />
+                    {secondsLeft} minutes{" "}
+                    <div style={{ paddingTop: 10 }}>
+                      Question {selectedQuestionIndex + 1} of{" "}
+                      {examData?.totalMarks}
+                    </div>
+                  </span>
+                </Col>
+                <Row>
+                  <Col xs={12}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {questions.map((q, index) => (
+                        <div
+                          key={index}
+                          className={`question-circle ${
+                            selectedQuestionIndex === index ? "selected" : ""
+                          } `}
+                          style={{
+                            backgroundColor:
+                              selectedOptions[index] !== undefined
+                                ? "#28a745"
+                                : "",
+                          }}
+                          onClick={() => setSelectedQuestionIndex(index)}
+                        >
+                          {index + 1}
+                        </div>
+                      ))}
+                    </div>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Row>

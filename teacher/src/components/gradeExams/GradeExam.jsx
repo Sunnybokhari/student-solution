@@ -140,6 +140,7 @@ const GradeExam = () => {
       result: studentAnswers,
       user: attemptData.user._id,
       obtainedMarks: obtainedMarks,
+      percentage: (obtainedMarks / attemptData.exam.totalMarks) * 100,
     });
     if (response.success) {
       message.success(response.message);
@@ -231,7 +232,7 @@ const GradeExam = () => {
           <Row>
             <Col style={{ display: "flex", justifyContent: "end" }}>
               {selectedQuestionIndex === questions.length - 1 && (
-                <Form layout="horizontal" style={{ width: 250 }}>
+                <Form layout="horizontal" style={{ width: 260 }}>
                   <Form.Item
                     style={{ marginRight: 15, marginTop: 25 }}
                     label={`Total Exam Marks out of ${attemptData?.exam.totalMarks}`}

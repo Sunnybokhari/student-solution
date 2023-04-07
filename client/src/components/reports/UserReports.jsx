@@ -77,6 +77,19 @@ function UserReports() {
       render: (text, record) => <>{record.result.correctAnswers.length}</>,
     },
     {
+      title: "Percentage",
+      dataIndex: "totalQuestions",
+      render: (text, record) => (
+        <>
+          {(
+            (record.result.correctAnswers.length / record.exam.totalMarks) *
+            100
+          ).toFixed(2)}
+          {" %"}
+        </>
+      ),
+    },
+    {
       title: "Verdict",
       dataIndex: "verdict",
       render: (text, record) => <>{record.result.verdict}</>,
@@ -110,6 +123,16 @@ function UserReports() {
       title: "Obtained Marks",
       dataIndex: "obtainedMarks",
       render: (text, record) => <>{record.obtainedMarks}</>,
+    },
+    {
+      title: "Percentage",
+      dataIndex: "totalQuestions",
+      render: (text, record) => (
+        <>
+          {((record.obtainedMarks / record.exam.totalMarks) * 100).toFixed(2)}
+          {" %"}
+        </>
+      ),
     },
     {
       title: "Action",
@@ -214,7 +237,7 @@ function UserReports() {
           borderWidth: 1,
         };
       }
-      subjectData[subject].data.push(parseInt(data.obtainedMarks));
+      subjectData[subject].data.push(parseInt(data.percentage));
     });
 
     const datasets = Object.values(subjectData);
@@ -237,6 +260,23 @@ function UserReports() {
   const [userReportsT, setUserReportsT] = useState({
     labels: [],
     datasets: [],
+    options: {
+      scales: {
+        yAxis: {
+          scaleLabel: {
+            display: true,
+            labelString: "Percentage",
+          },
+        },
+
+        xAxis: {
+          scaleLabel: {
+            display: true,
+            labelString: "Date",
+          },
+        },
+      },
+    },
   });
 
   useEffect(() => {
@@ -253,7 +293,7 @@ function UserReports() {
           borderWidth: 1,
         };
       }
-      subjectData[subject].data.push(parseInt(data.obtainedMarks));
+      subjectData[subject].data.push(parseInt(data.percentage));
     });
 
     const datasets = Object.values(subjectData);
@@ -293,7 +333,7 @@ function UserReports() {
           borderWidth: 1,
         };
       }
-      subjectData[subject].data.push(parseInt(data.obtainedMarks));
+      subjectData[subject].data.push(parseInt(data.percentage));
     });
 
     const datasets = Object.values(subjectData);
@@ -333,7 +373,7 @@ function UserReports() {
           borderWidth: 1,
         };
       }
-      subjectData[subject].data.push(parseInt(data.obtainedMarks));
+      subjectData[subject].data.push(parseInt(data.percentage));
     });
 
     const datasets = Object.values(subjectData);
@@ -351,6 +391,33 @@ function UserReports() {
       datasets: datasets,
     });
   }, [globalReportsDataT]);
+
+  const chartOptions = {
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Date",
+          font: {
+            size: 16,
+            // weight: "bold",
+          },
+        },
+      },
+      y: {
+        min: 0,
+        max: 100,
+        title: {
+          display: true,
+          text: "Percentage %",
+          font: {
+            size: 16,
+            // weight: "bold",
+          },
+        },
+      },
+    },
+  };
   return (
     <Container>
       <Navbar />
@@ -372,11 +439,11 @@ function UserReports() {
             >
               <div style={{ width: 700 }}>
                 <h2>Your MCQ Exams</h2>
-                <Line data={userReports} />
+                <Line data={userReports} options={chartOptions} />
               </div>
               <div style={{ width: 700 }}>
                 <h2>Global MCQ Exams</h2>
-                <Line data={globalReports} />
+                <Line data={globalReports} options={chartOptions} />
               </div>
             </div>
             <div className="divider" style={{ paddingTop: 35 }}></div>
@@ -389,11 +456,11 @@ function UserReports() {
             >
               <div style={{ width: 700 }}>
                 <h2>Your Theory Exams</h2>
-                <Line data={userReportsT} />
+                <Line data={userReportsT} options={chartOptions} />
               </div>
               <div style={{ width: 700 }}>
                 <h2>Global Theory Exams</h2>
-                <Line data={globalReportsT} />
+                <Line data={globalReportsT} options={chartOptions} />
               </div>
             </div>
           </TabPane>

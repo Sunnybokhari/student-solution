@@ -230,6 +230,7 @@ const McqAttempt = () => {
       message.error(response.message);
     }
   };
+  console.log(selectedOptions);
 
   return (
     <Container>
@@ -281,6 +282,10 @@ const McqAttempt = () => {
                             type="file"
                             onChange={(event) => {
                               setInputField(event.target.files[0]);
+                              setSelectedOptions({
+                                ...selectedOptions,
+                                [selectedQuestionIndex]: "A",
+                              });
                             }}
                           />
                         </Form.Item>
@@ -334,13 +339,53 @@ const McqAttempt = () => {
                   </QuestionOptionsContainer>
                 </QuestionContainer>
               </Col>
-              <Col xs={2} className="timerContainer">
-                <span className="timer">
-                  {secondsLeft} minutes{" "}
-                  <div style={{ paddingTop: 10 }}>
-                    Question {selectedQuestionIndex + 1} of {questions.length}
-                  </div>
-                </span>
+              <Col xs={2}>
+                <Col xs={12} className="timerContainer">
+                  <span className="timer">
+                    <img
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginRight: "5px",
+                      }}
+                      src="https://img.icons8.com/ios/50/1A1A1A/time--v1.png"
+                    />
+                    {secondsLeft} minutes{" "}
+                    <div style={{ paddingTop: 10 }}>
+                      Question {selectedQuestionIndex + 1} of{" "}
+                      {examData?.totalMarks}
+                    </div>
+                  </span>
+                </Col>
+                <Row>
+                  <Col xs={12}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {questions.map((q, index) => (
+                        <div
+                          key={index}
+                          className={`question-circle ${
+                            selectedQuestionIndex === index ? "selected" : ""
+                          } `}
+                          style={{
+                            backgroundColor:
+                              selectedOptions[index] !== undefined
+                                ? "#28a745"
+                                : "",
+                          }}
+                          onClick={() => setSelectedQuestionIndex(index)}
+                        >
+                          {index + 1}
+                        </div>
+                      ))}
+                    </div>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Row>

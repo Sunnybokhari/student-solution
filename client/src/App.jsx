@@ -30,6 +30,7 @@ import PaymentPlans from "./components/home/PaymentPlans";
 import PaymentPlan from "./pages/PaymentPlan";
 import Profile from "./pages/Profile";
 import TeacherPreferences from "./pages/TeacherPreferences";
+import McqReport from "./components/reports/McqReport";
 const App = () => {
   return (
     <Router>
@@ -70,6 +71,9 @@ const App = () => {
         </Route>
         <Route path="/teacherpreferences" exact>
           <TeacherPreferences />
+        </Route>
+        <Route path="/mcqreport/:id">
+          <McqReport />
         </Route>
       </Switch>
     </Router>

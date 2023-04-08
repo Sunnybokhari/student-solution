@@ -17,6 +17,7 @@ import styled from "styled-components";
 import Footer from "../home/Footer";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
+import { mobile, desktop } from "../../responsive";
 
 const { TabPane } = Tabs;
 
@@ -34,6 +35,7 @@ const Wrapper = styled.div`
   padding-left: 5px;
   padding-right: 5px;
   padding-bottom: 15px;
+  ${desktop({ width: "95%" })}
 `;
 
 function UserReports() {
@@ -93,6 +95,21 @@ function UserReports() {
       title: "Verdict",
       dataIndex: "verdict",
       render: (text, record) => <>{record.result.verdict}</>,
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      render: (text, record) => (
+        <div>
+          <Button
+            className="primary me-2"
+            size="sm"
+            onClick={() => history.push(`/mcqreport/${record._id}`)}
+          >
+            View Report
+          </Button>
+        </div>
+      ),
     },
   ];
   const columnsT = [

@@ -140,10 +140,24 @@ background: none;
     font-size: 60px;
     font-weight: bold;
 }
+@media only screen and (max-width: 1300px){
+    .planPrice{
+        font-size: 40px;
+
+    }
+}
+
 
 .priceS{
     font-size: 32px;
     font-weight: normal;
+}
+
+@media only screen and (max-width: 1300px){
+    .priceS{
+        font-size: 25px;
+
+    }
 }
 
 .priceSs{
@@ -355,6 +369,19 @@ margin-bottom: 100px;
     justify-content: center;
     margin-bottom: 50px;
     
+}
+@media only screen and (max-width: 1300px) {
+    .flexAttemptQuestion{
+        align-items:start;
+    }
+    .flexAttemptOptions{
+        align-items:start;
+        
+    }
+    .teacherPreferencebutton{
+        font-size: 12px;
+        padding: 5px 3px;
+    }
 }
 
 .timerContainer{

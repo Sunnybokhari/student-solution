@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import Navbar from "../home/Navbar";
 import { useSelector } from "react-redux";
 import Footer from "../home/Footer";
+import { mobile, desktop } from "../../responsive";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -18,6 +19,7 @@ const Wrapper = styled.div`
   background-color: white;
   margin-bottom: 100px;
   border-radius: 15px;
+  ${desktop({ width: "95%" })}
 `;
 
 const Heading = styled.h1`

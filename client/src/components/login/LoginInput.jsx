@@ -3,6 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import styled from "styled-components";
 import { loginUser } from "../../apiCalls/users";
 import { Form, message, Button } from "antd";
+import { mobile, desktop } from "../../responsive";
 
 const Container = styled.div`
   width: 60%;
@@ -14,6 +15,7 @@ const Container = styled.div`
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   display: flex;
   background-color: white;
+  ${desktop({ width: "80%" })}
 `;
 
 const Heading = styled.h1`

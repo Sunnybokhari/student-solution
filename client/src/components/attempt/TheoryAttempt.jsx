@@ -19,6 +19,7 @@ import {
 } from "firebase/storage";
 import { storage } from "../../apiCalls/firebase";
 import { v4 } from "uuid";
+import { mobile, desktop } from "../../responsive";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -31,6 +32,7 @@ const Wrapper = styled.div`
   margin: auto;
   margin-top: 100px;
   margin-bottom: 100px;
+  ${desktop({ width: "98%" })}
 `;
 
 const Heading = styled.h1`

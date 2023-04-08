@@ -7,6 +7,7 @@ import { getPrices, session } from "../../apiCalls/subs";
 import { message } from "antd";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { mobile, desktop } from "../../responsive";
 
 const Container = styled.div`
   margin-top: 80px;
@@ -78,9 +79,9 @@ const PaymentPlans = () => {
         <Plan>
           <h1 className="planH">{prices[3]?.nickname}</h1>
           <span className="planPrice">
-            <sup className="priceS">PKR</sup>
+            <span className="priceS">PKR</span>
             {prices[3]?.unit_amount / 100}
-            <sub className="priceSs">/mon</sub>
+            <span className="priceSs">/mon</span>
           </span>
           <div>
             <ul className="planL">
@@ -104,9 +105,9 @@ const PaymentPlans = () => {
         <Plan>
           <h1 className="planH">{prices[2]?.nickname}</h1>
           <span className="planPrice">
-            <sup className="priceS">PKR</sup>
+            <span className="priceS">PKR</span>
             {prices[2]?.unit_amount / 100}
-            <sub className="priceSs">/mon</sub>
+            <span className="priceSs">/mon</span>
           </span>
           <div>
             <ul className="planL">
@@ -130,9 +131,9 @@ const PaymentPlans = () => {
         <Plan>
           <h1 className="planH">{prices[1]?.nickname}</h1>
           <span className="planPrice">
-            <sup className="priceS">PKR</sup>
+            <span className="priceS">PKR</span>
             {prices[1]?.unit_amount / 100}
-            <sub className="priceSs">/mon</sub>
+            <span className="priceSs">/mon</span>
           </span>
           <div>
             <ul className="planL">

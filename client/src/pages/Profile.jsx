@@ -238,7 +238,7 @@ const Profile = () => {
             {userData && (
               <Form
                 name="normal_login"
-                className="login-form formI"
+                className="login-form formP"
                 layout="vertical"
                 onFinish={editUser}
                 initialValues={userData}
@@ -288,60 +288,6 @@ const Profile = () => {
               </Form>
             )}
           </TabPane>
-          {/* <TabPane
-            onClick={() => {
-              subscriptionAccessTheory();
-            }}
-            tab="Teacher Preferences"
-            key="2"
-          >
-            <Row className="pt-2 pb-2">
-              <Col sm={3}>
-                <span style={{ marginLeft: 15 }}>Class: </span>
-                <select
-                  className="selectOption"
-                  style={{ width: 200 }}
-                  value={classFilter}
-                  onChange={(e) => setClassFilter(e.target.value)}
-                >
-                  <SubjectOption value="All">All</SubjectOption>
-                  <SubjectOption value="O1">O1</SubjectOption>
-                  <SubjectOption value="O2">O2</SubjectOption>
-                  <SubjectOption value="AS">AS</SubjectOption>
-                  <SubjectOption value="A2">A2</SubjectOption>
-                  {/* Add options for other classes as needed */}
-          {/* </select>
-              </Col>
-              <Col sm={3} style={{ marginLeft: 5 }}>
-                <span>Subject: </span>
-
-                <select
-                  className="selectOption"
-                  style={{ width: 200 }}
-                  value={subjectFilter}
-                  onChange={(e) => setSubjectFilter(e.target.value)}
-                >
-                  <SubjectOption value="All">All</SubjectOption>
-                  <SubjectOption value="Accounting">Accounting</SubjectOption>
-                  <SubjectOption value="Business">Business</SubjectOption>
-                  <SubjectOption value="Biology">Biology</SubjectOption>
-                  <SubjectOption value="Chemistry">Chemistry</SubjectOption>
-                  <SubjectOption value="Economics">Economics</SubjectOption>
-                  <SubjectOption value="English">English</SubjectOption>
-                  <SubjectOption value="Mathematics">Mathematics</SubjectOption>
-                  <SubjectOption value="Physics">Physics</SubjectOption>
-                  <SubjectOption value="Psychology">Psychology</SubjectOption>
-
-                  {/* Add options for other classes as needed */}
-          {/* </select>
-              </Col>
-            </Row>
-            <Table
-              columns={columns}
-              dataSource={filteredExams}
-              className="mt-2"
-            />
-          </TabPane> */}{" "}
         </Tabs>
       </Wrapper>
       <Footer />

@@ -95,4 +95,23 @@ router.post("/get-all-reports-by-user", authMiddleware, async (req, res) => {
   }
 });
 
+router.post("/get-report-by-id", authMiddleware, async (req, res) => {
+  try {
+    const exam = await Report.findById(req.body.reportId)
+      .populate("user")
+      .populate("exam");
+    res.send({
+      message: "Report fetched successfully",
+      data: exam,
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      data: error,
+      success: false,
+    });
+  }
+});
+
 module.exports = router;

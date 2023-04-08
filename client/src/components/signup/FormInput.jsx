@@ -4,6 +4,7 @@ import styled from "styled-components";
 // import Form from "react-bootstrap/Form";
 import { registerUser } from "../../apiCalls/users";
 import { Button, Form, message, Input } from "antd";
+import { mobile, desktop } from "../../responsive";
 
 const Container = styled.div`
   width: 60%;
@@ -15,6 +16,7 @@ const Container = styled.div`
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   display: flex;
   background-color: white;
+  ${desktop({ width: "80%" })}
 `;
 
 const Heading = styled.h1`

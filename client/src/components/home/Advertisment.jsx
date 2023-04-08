@@ -6,13 +6,13 @@ import { Journals } from "react-bootstrap-icons";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import styled from "styled-components";
-import { mobile } from "../../responsive";
+import { mobile, desktop } from "../../responsive";
 
 const Container = styled.div`
   margin: auto;
   width: 60%;
   display: flex;
-  ${mobile({ display: "block" })}
+  ${desktop({ width: "95%" })}
 `;
 
 const Left = styled.div`

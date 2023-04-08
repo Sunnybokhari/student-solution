@@ -17,6 +17,8 @@ import { useHistory } from "react-router-dom";
 import Footer from "../components/home/Footer";
 import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
+import { mobile, desktop } from "../responsive";
+
 const { TabPane } = Tabs;
 
 const Container = styled.div``;
@@ -27,6 +29,7 @@ const Wrapper = styled.div`
   margin: auto;
   align-items: center;
   margin-bottom: 200px;
+  ${desktop({ width: "95%" })}
 `;
 
 const SubjectOption = styled.option`
@@ -95,7 +98,7 @@ const Profile = () => {
       render: (text, record) => (
         <div>
           <Button
-            className="primary me-2"
+            className="primary me-2 teacherPreferencebutton"
             size="sm"
             onClick={() => {
               subscriptionAccessTheory();
@@ -113,7 +116,7 @@ const Profile = () => {
       render: (text, record) => (
         <div>
           <Button
-            className="primary me-2"
+            className="primary me-2 teacherPreferencebutton"
             size="sm"
             variant="danger"
             onClick={() => removeUserPreference(record.email)}

@@ -1,10 +1,10 @@
 :root {
   --primary: #0F3460;
   --secondary: #ff5722;
-  --success: #6fbf71;
+  --success: #28a745;
   --info: #00bcd4;
   --warning: #f88000;
-  --danger: #f44336;
+  --danger: #dc3545;
   --light: #f1f1f1;
   --dark: #212121;
   --yellow: #fdfd00;
@@ -22,6 +22,9 @@
 
 .bg-success{
     background-color: var(--success);
+}
+.bg-danger{
+    background-color: var(--danger);
 }
 
 .bg-error{

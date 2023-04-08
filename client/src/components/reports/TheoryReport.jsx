@@ -12,6 +12,7 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import styled from "styled-components";
 import Footer from "../home/Footer";
+import { mobile, desktop } from "../../responsive";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -25,6 +26,7 @@ const Wrapper = styled.div`
   margin-bottom: 150px;
   border-radius: 15px;
   padding: 5px;
+  ${desktop({ width: "95%" })}
 `;
 
 const ButtonDiv = styled.div`

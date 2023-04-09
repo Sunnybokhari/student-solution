@@ -111,7 +111,10 @@ function ListOfExams() {
       return (
         exam.exam.subject === teacherData.subject &&
         exam.preference &&
-        exam.preference.includes(teacherData.email)
+        // exam.preference.includes(teacherData.email)
+        exam.preference.some(
+          (preference) => preference.preference === teacherData.email
+        )
       );
     });
 

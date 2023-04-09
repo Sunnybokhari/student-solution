@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
       default: true,
     },
     preference: {
-      type: [String],
+      type: [Object],
       ref: "teachers",
       required: false,
     },

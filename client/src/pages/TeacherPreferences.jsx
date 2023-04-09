@@ -102,7 +102,7 @@ const Profile = () => {
             size="sm"
             onClick={() => {
               subscriptionAccessTheory();
-              setPreference(record.email);
+              setPreference(record.email, record.subject);
             }}
           >
             Set Preferrence
@@ -171,8 +171,11 @@ const Profile = () => {
     }
   };
 
-  const setPreference = async (teacherId) => {
-    const response = await addPreference({ preference: teacherId });
+  const setPreference = async (teacherId, subject) => {
+    const response = await addPreference({
+      preference: teacherId,
+      subject: subject,
+    });
     if (response.success) {
       message.success(response.message);
     } else {

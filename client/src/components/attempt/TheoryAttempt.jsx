@@ -232,7 +232,6 @@ const McqAttempt = () => {
       message.error(response.message);
     }
   };
-  console.log(selectedOptions);
 
   return (
     <Container>

@@ -151,14 +151,59 @@ router.post("/update-user-info", authMiddleware, async (req, res) => {
   }
 });
 
+// router.post("/add-preference-user-info", authMiddleware, async (req, res) => {
+//   try {
+//     const preference = req.body.preference;
+//     const subject = req.body.subject;
+//     const user = await User.findById(req.body.userId);
+//     if (!user.preference) {
+//       user.preference = []; // create preference array if it doesn't exist
+//     }
+//     if (user.preference.includes(preference)) {
+//       res.send({
+//         message: "This Teacher is already in your preference list",
+//         success: false,
+//         data: user,
+//       });
+//       return;
+//     }
+//     if (user.preference.includes(subject)) {
+//       res.send({
+//         message: "You already have a Preference set for this subject",
+//         success: false,
+//         data: user,
+//       });
+//       return;
+//     }
+//     user.preference.push(preference);
+//     await user.save();
+//     res.send({
+//       message: "Preference added successfully",
+//       success: true,
+//       data: user,
+//     });
+//   } catch (error) {
+//     res.status(500).send({
+//       message: error.message,
+//       data: error,
+//       success: false,
+//     });
+//   }
+// });
+
 router.post("/add-preference-user-info", authMiddleware, async (req, res) => {
   try {
     const preference = req.body.preference;
+    const subject = req.body.subject;
     const user = await User.findById(req.body.userId);
     if (!user.preference) {
       user.preference = []; // create preference array if it doesn't exist
     }
-    if (user.preference.includes(preference)) {
+    // check if the preference already exists in the user.preference array
+    const existingPreference = user.preference.find(
+      (p) => p.preference === preference
+    );
+    if (existingPreference) {
       res.send({
         message: "This Teacher is already in your preference list",
         success: false,
@@ -166,7 +211,18 @@ router.post("/add-preference-user-info", authMiddleware, async (req, res) => {
       });
       return;
     }
-    user.preference.push(preference);
+    // check if the subject already exists in the user.preference array
+    const existingSubject = user.preference.find((p) => p.subject === subject);
+    if (existingSubject) {
+      res.send({
+        message: "You already have a Preference set for this subject",
+        success: false,
+        data: user,
+      });
+      return;
+    }
+    // add the new preference and subject combination to the user.preference array
+    user.preference.push({ preference, subject });
     await user.save();
     res.send({
       message: "Preference added successfully",
@@ -182,14 +238,58 @@ router.post("/add-preference-user-info", authMiddleware, async (req, res) => {
   }
 });
 
+// router.post(
+//   "/remove-preference-user-info",
+//   authMiddleware,
+//   async (req, res) => {
+//     try {
+//       const preferenceId = req.body.preference;
+
+//       const user = await User.findById(req.body.userId);
+//       if (!user) {
+//         return res.status(404).send({
+//           message: "User not found",
+//           success: false,
+//         });
+//       }
+
+//       const preferenceIndex = user.preference.findIndex(
+//         (preference) => preference === preferenceId
+//       );
+//       if (preferenceIndex === -1) {
+//         return res.status(404).send({
+//           message: "This Teacher is not in your Preferences list",
+//           success: false,
+//         });
+//       }
+
+//       user.preference.splice(preferenceIndex, 1);
+//       await user.save();
+
+//       res.send({
+//         message: "Preference removed successfully",
+//         success: true,
+//         data: user,
+//       });
+//     } catch (error) {
+//       res.status(500).send({
+//         message: error.message,
+//         data: error,
+//         success: false,
+//       });
+//     }
+//   }
+// );
+
 router.post(
   "/remove-preference-user-info",
   authMiddleware,
   async (req, res) => {
     try {
-      const preferenceId = req.body.preference;
+      const preferenceId = req.body.preferenceId;
+      const userId = req.body.userId;
 
-      const user = await User.findById(req.body.userId);
+      const user = await User.findById(userId);
       if (!user) {
         return res.status(404).send({
           message: "User not found",
@@ -198,11 +298,11 @@ router.post(
       }
 
       const preferenceIndex = user.preference.findIndex(
-        (preference) => preference === preferenceId
+        (preference) => preference._id === preferenceId
       );
       if (preferenceIndex === -1) {
         return res.status(404).send({
-          message: "This Teacher is not in your Preferences list",
+          message: "This preference doesn't exist in your preferences list",
           success: false,
         });
       }

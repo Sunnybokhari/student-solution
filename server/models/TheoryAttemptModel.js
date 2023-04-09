@@ -16,7 +16,7 @@ const theoryAttemptSchema = new mongoose.Schema(
       required: true,
     },
     preference: {
-      type: [String],
+      type: [Object],
       ref: "users",
       required: false,
     },

@@ -29,17 +29,19 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${mobile({ width: "100%" })}
+  ${mobile({ width: "100%", paddingLeft: "0px", paddingRight: "5px" })}
 `;
 
 const Left = styled.div`
   display: block;
   align-items: center;
+  ${mobile({ display: "none" })}
 `;
 
 const Center = styled.div`
   display: flex;
   text-align: center;
+  ${mobile({ fontSize: "11px", margin: "0px" })}
 `;
 
 const Right = styled.div`
@@ -275,7 +277,11 @@ const Navbar = () => {
               to="/signup"
               style={{ textDecoration: "none", color: "black" }}
             >
-              <Button style={{ marginLeft: "10px" }} variant="outline-primary">
+              <Button
+                className="navbarMobileButton"
+                style={{ marginLeft: "10px" }}
+                variant="outline-primary"
+              >
                 Sign Up
               </Button>{" "}
             </Link>

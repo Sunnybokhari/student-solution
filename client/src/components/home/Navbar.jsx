@@ -116,6 +116,7 @@ const Navbar = () => {
   const mcqRef = useRef(null);
   const theoryRef = useRef(null);
   const reportsRef = useRef(null);
+  const lecturesRef = useRef(null);
   const { id } = useParams();
   useEffect(() => {
     const { pathname } = location;
@@ -144,6 +145,8 @@ const Navbar = () => {
       location.pathname.includes(id)
     ) {
       theoryRef.current.setAttribute("aria-current", "page");
+    } else if (lecturesRef.current && pathname === "/listoflectures") {
+      lecturesRef.current.setAttribute("aria-current", "page");
     }
   }, [location]);
 
@@ -200,6 +203,16 @@ const Navbar = () => {
               className="navButton navlink"
             >
               REPORTS
+            </Nav.Item>
+            <Nav.Item
+              style={{ cursor: "pointer" }}
+              ref={lecturesRef}
+              onClick={() => {
+                history.push("/listoflectures");
+              }}
+              className="navButton navlink"
+            >
+              LECTURES
             </Nav.Item>
           </Nav>
         </Center>

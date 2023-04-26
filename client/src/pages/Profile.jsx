@@ -257,6 +257,7 @@ const Profile = () => {
                 </Form.Item>
                 <Form.Item className="" name="password" label="Password">
                   <Input
+                    disabled
                     type="password"
                     className="site-form-item-icon forminput"
                   />

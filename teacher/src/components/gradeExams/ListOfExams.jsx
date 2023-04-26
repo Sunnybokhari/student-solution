@@ -8,6 +8,7 @@ import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { getUserInfo } from "../../apiCalls/teachers";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -24,6 +25,8 @@ const Wrapper = styled.div`
 `;
 
 function ListOfExams() {
+  const { user } = useSelector((state) => state.users);
+
   const [reportsData, setReportsData] = React.useState([]);
   const [teacherData, setTeacherData] = React.useState({ subject: "" });
   const [filteredExams, setFilteredExams] = React.useState([]);

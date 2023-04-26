@@ -31,6 +31,8 @@ import PaymentPlan from "./pages/PaymentPlan";
 import Profile from "./pages/Profile";
 import TeacherPreferences from "./pages/TeacherPreferences";
 import McqReport from "./components/reports/McqReport";
+import ListOfLectures from "./components/lectures/ListOfLectures";
+import JoinLecture from "./components/lectures/JoinLecture";
 const App = () => {
   return (
     <Router>
@@ -74,6 +76,12 @@ const App = () => {
         </Route>
         <Route path="/mcqreport/:id">
           <McqReport />
+        </Route>
+        <Route path="/listoflectures">
+          <ListOfLectures />
+        </Route>
+        <Route path="/join/:id">
+          <JoinLecture />
         </Route>
       </Switch>
     </Router>

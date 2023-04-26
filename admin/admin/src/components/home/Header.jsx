@@ -22,15 +22,13 @@ const Header = () => {
   return (
     <Container1>
       {[false].map((expand) => (
-        <Navbar key={expand} bg="dark" expand={expand} className="mb-3">
+        <Navbar key={expand} bg="light" expand={expand} className="mb-3">
           <Container fluid>
             <Navbar.Toggle
-              style={{ backgroundColor: "#5b5b5b" }}
+              style={{ border: "2px solid gray" }}
               aria-controls={`offcanvasNavbar-expand-${expand}`}
             />
-            <Navbar.Brand className="color-w" href="/home">
-              Admin Dashboard
-            </Navbar.Brand>
+            <Navbar.Brand href="/home">Admin Dashboard</Navbar.Brand>
 
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}

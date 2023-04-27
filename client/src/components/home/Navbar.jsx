@@ -91,6 +91,15 @@ const Navbar = () => {
     }
   };
 
+  const subscriptionAccessLectures = async () => {
+    const response = await subscriptions({ userId: user.id });
+    if (response === "Premium") {
+      history.push("/listoflectures");
+    } else {
+      history.push("/paymentplans");
+    }
+  };
+
   const userLogout = async () => {
     localStorage.removeItem("token");
     dispatch(ClearUser());
@@ -208,7 +217,7 @@ const Navbar = () => {
               style={{ cursor: "pointer" }}
               ref={lecturesRef}
               onClick={() => {
-                history.push("/listoflectures");
+                subscriptionAccessLectures();
               }}
               className="navButton navlink"
             >

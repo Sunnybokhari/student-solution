@@ -82,6 +82,7 @@ const JoinLecture = () => {
     zp.joinRoom({
       container: element,
       maxUsers: 50,
+      showScreenSharingButton: false,
       sharedLinks: [
         {
           name: "Personal link",

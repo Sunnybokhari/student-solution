@@ -5,6 +5,7 @@ function MeetingMaximumUsersField({ value, setSize }) {
   return (
     <EuiFormRow label="Maximum People">
       <EuiFieldNumber
+        disabled
         min={1}
         max={50}
         placeholder="Maximum People"

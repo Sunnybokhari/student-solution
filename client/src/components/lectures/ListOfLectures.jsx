@@ -25,6 +25,20 @@ const Wrapper = styled.div`
   border-radius: 15px;
 `;
 
+const SubjectOption = styled.option`
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  color: #333;
+  border: solid 1px gray;
+  margin: 0px 5px;
+  width: 150px;
+  cursor: pointer;
+  &:hover {
+    background-color: darkgrey;
+  }
+`;
+
 function ListOfLectures() {
   const history = useHistory();
   const [meetings, setMeetings] = useState([]);
@@ -127,6 +141,16 @@ function ListOfLectures() {
     // },
   ];
 
+  const [classFilter, setClassFilter] = useState("All");
+  const [subjectFilter, setSubjectFilter] = useState("All");
+
+  const filteredExams = meetings.filter((exam) => {
+    return (
+      (classFilter === "All" || exam.class === classFilter) &&
+      (subjectFilter === "All" || exam.subject === subjectFilter)
+    );
+  });
+
   return (
     <Container>
       <Navbar />
@@ -142,8 +166,48 @@ function ListOfLectures() {
             <h2 style={{}}>Scheduled Lectures</h2>
           </Col>
         </Row>{" "}
+        <Row>
+          <Col sm={4}>
+            <span style={{ marginLeft: 15 }}>Class: </span>
+            <select
+              className="selectContainer"
+              style={{ width: 200 }}
+              value={classFilter}
+              onChange={(e) => setClassFilter(e.target.value)}
+            >
+              <SubjectOption className="selectOption" value="All">
+                All
+              </SubjectOption>
+              <SubjectOption value="O1">O1</SubjectOption>
+              <SubjectOption value="O2">O2</SubjectOption>
+              <SubjectOption value="AS">AS</SubjectOption>
+              <SubjectOption value="A2">A2</SubjectOption>
+            </select>
+          </Col>
+          <Col sm={4} style={{ marginLeft: 5 }}>
+            <span>Subject: </span>
+
+            <select
+              className="selectContainer"
+              style={{ width: 200 }}
+              value={subjectFilter}
+              onChange={(e) => setSubjectFilter(e.target.value)}
+            >
+              <SubjectOption value="All">All</SubjectOption>
+              <SubjectOption value="Accounting">Accounting</SubjectOption>
+              <SubjectOption value="Business">Business</SubjectOption>
+              <SubjectOption value="Biology">Biology</SubjectOption>
+              <SubjectOption value="Chemistry">Chemistry</SubjectOption>
+              <SubjectOption value="Economics">Economics</SubjectOption>
+              <SubjectOption value="English">English</SubjectOption>
+              <SubjectOption value="Mathematics">Mathematics</SubjectOption>
+              <SubjectOption value="Physics">Physics</SubjectOption>
+              <SubjectOption value="Psychology">Psychology</SubjectOption>
+            </select>
+          </Col>
+        </Row>
         <div className="divider"></div>
-        <Table columns={columns} dataSource={meetings} className="mt-2" />
+        <Table columns={columns} dataSource={filteredExams} className="mt-2" />
       </Wrapper>
     </Container>
   );

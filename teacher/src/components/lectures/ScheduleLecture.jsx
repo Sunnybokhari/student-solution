@@ -21,6 +21,9 @@ import MeetingDateField from "./FormComponents/MeetingDateField";
 import MeetingMaximumUsersField from "./FormComponents/MeetingMaximumUsersField";
 import MeetingNameField from "./FormComponents/MeetingNameFIeld";
 import { generateMeetingId } from "./FormComponents/generateMeetingId";
+import { TimePicker } from "antd";
+import dayjs from "dayjs";
+import { DatePicker, Space, Form } from "antd";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -28,23 +31,23 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 400px;
   margin: auto;
   margin-top: 100px;
   background-color: white;
   margin-bottom: 100px;
   border-radius: 15px;
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 `;
 
 const ScheduleLecture = () => {
   const [meetingName, setMeetingName] = useState("");
   const [startDate, setStartDate] = useState(moment());
-  const [size, setSize] = useState(1);
-  // const { user } = useSelector((state) => state.users);
+  const [startTime, setStartTime] = useState();
+  const [size, setSize] = useState(50);
   const history = useHistory();
   const [teacherData, setTeacherData] = React.useState();
+  const format = "HH:mm";
 
   const getUserData = async () => {
     try {
@@ -57,6 +60,14 @@ const ScheduleLecture = () => {
     } catch (error) {
       message.error(error.message);
     }
+  };
+
+  const onChangeDate = (date, dateString) => {
+    setStartDate(moment(dateString));
+  };
+
+  const onChangeTime = (time) => {
+    setStartTime(time);
   };
 
   const [showErrors, setShowErrors] = useState({
@@ -89,7 +100,7 @@ const ScheduleLecture = () => {
   useEffect(() => {
     getUserData();
   }, []);
-  const createMeeting = async () => {
+  const createMeeting = async (values) => {
     const meetingId = generateMeetingId();
     console.log(meetingsRef);
     await addDoc(meetingsRef, {
@@ -102,51 +113,81 @@ const ScheduleLecture = () => {
       meetingName,
       meetingType: anyoneCanJoin ? "anyone-can-join" : "video-conference",
       meetingDate: startDate.format("L"),
+      meetingTime: startTime.format("HH:mm"),
       maxUsers: size,
       status: "active",
     });
     history.push("/listlectures");
   };
 
+  console.log(startDate);
   return (
     <Container>
       <Header />
       <Wrapper>
-        {" "}
-        <EuiFlexGroup justifyContent="center" alignItems="center">
-          <EuiForm>
-            {/* <EuiFormRow
-              display="columnCompressedSwitch"
-              label="Anyone can Join"
-            >
-              <EuiSwitch
-                showLabel={false}
-                label="Anyone Can Join"
-                checked={anyoneCanJoin}
-                onChange={(e) => setAnyoneCanJoin(e.target.checked)}
-                compressed
+        <h2 style={{ padding: "10px" }}>Create Lecture</h2>
+        <Form
+          name="normal_login"
+          className=""
+          style={{ padding: "10px" }}
+          layout="vertical"
+          onFinish={createMeeting}
+        >
+          <Form.Item className="" name="meetingName" label="Lecture name">
+            <input
+              className=" forminput"
+              placeholder="Lecture name"
+              type="text"
+              onChange={(e) => setMeetingName(e.target.value)}
+            />
+          </Form.Item>
+
+          <div style={{ display: "flex" }}>
+            <div>
+              <span>Select Date</span>
+              <Space direction="vertical">
+                <DatePicker onChange={onChangeDate} />
+              </Space>
+            </div>
+            <div>
+              <span>Select Time</span>
+              <TimePicker
+                onChange={onChangeTime}
+                defaultValue={dayjs("00:00", format)}
+                format={format}
               />
-            </EuiFormRow> */}
-
-            <MeetingNameField
-              label="Meeting name"
-              // isInvalid={showErrors.meetingName.show}
-              // error={showErrors.meetingName.message}
-              placeholder="Meeting name"
-              value={meetingName}
-              setMeetingName={setMeetingName}
-            />
-
-            <MeetingMaximumUsersField value={size} setSize={setSize} />
-
-            <MeetingDateField
-              selected={startDate}
-              setStartDate={setStartDate}
-            />
-            <EuiSpacer />
-            <CreateMeetingButtons createMeeting={createMeeting} />
-          </EuiForm>
-        </EuiFlexGroup>
+            </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "end",
+              marginTop: "15px",
+            }}
+          >
+            <Button
+              classname="formB"
+              variant="danger"
+              size="large"
+              onClick={() => {
+                history.push("/listlectures");
+              }}
+              block
+              style={{ marginRight: "10px" }}
+            >
+              Cancel
+            </Button>
+            <Button
+              classname="formB"
+              type="primary"
+              size="large"
+              htmlType="submit"
+              block
+            >
+              Create
+            </Button>
+          </div>
+        </Form>
       </Wrapper>
     </Container>
   );

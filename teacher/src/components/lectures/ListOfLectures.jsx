@@ -23,7 +23,7 @@ import MeetingNameField from "./FormComponents/MeetingNameFIeld";
 
 const Container = styled.div`
   background-color: whitesmoke;
-  height: 100vh;
+  padding-bottom: 50px;
 `;
 
 const Wrapper = styled.div`
@@ -92,8 +92,8 @@ function ListOfLectures() {
   };
 
   const [meetingName, setMeetingName] = useState();
-  const [size, setSize] = useState(1);
-  const [status, setStatus] = useState(editMeeting?.status || "active");
+  const [size, setSize] = useState(50);
+  const [status, setStatus] = useState();
   const [startDate, setStartDate] = useState();
 
   const updateMeeting = async () => {
@@ -138,8 +138,13 @@ function ListOfLectures() {
       title: "Date",
       dataIndex: "date",
       render: (text, record) => (
-        <>{moment(record.meetingDate).format("DD-MM-YYYY hh:mm:ss")}</>
+        <>{moment(record.meetingDate).format("DD-MM-YYYY")}</>
       ),
+    },
+    {
+      title: "Time",
+      dataIndex: "time",
+      render: (text, record) => <>{record.meetingTime}</>,
     },
     {
       title: "Max Participants",
@@ -221,7 +226,7 @@ function ListOfLectures() {
                     setMeetingName={setMeetingName}
                   />
 
-                  <MeetingMaximumUsersField value={size} setSize={setSize} />
+                  {/* <MeetingMaximumUsersField value={size} setSize={setSize} /> */}
 
                   <MeetingDateField
                     selected={startDate}

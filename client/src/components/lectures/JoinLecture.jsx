@@ -90,7 +90,11 @@ const JoinLecture = () => {
         },
       ],
       scenario: {
-        mode: ZegoUIKitPrebuilt.VideoConference,
+        // mode: ZegoUIKitPrebuilt.VideoConference,
+        mode: ZegoUIKitPrebuilt.LiveStreaming,
+        config: {
+          role: ZegoUIKitPrebuilt.Audience,
+        },
       },
     });
   };
@@ -101,13 +105,14 @@ const JoinLecture = () => {
         style={{
           display: "flex",
           height: "100vh",
+          width: "100vw",
           flexDirection: "column",
         }}
       >
         <div
           className="myCallContainer"
           ref={myMeeting}
-          style={{ width: "100%", height: "100vh" }}
+          style={{ width: "100%", height: "100%" }}
         ></div>
       </div>
     </div>

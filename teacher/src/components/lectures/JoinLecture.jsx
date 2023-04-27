@@ -84,31 +84,70 @@ const JoinLecture = () => {
     zp?.joinRoom({
       container: element,
       maxUsers: 50,
+      // showPreJoinView: false,
+      showScreenSharingButton: true,
       sharedLinks: [
         {
           name: "Personal link",
           url: window.location.origin,
         },
       ],
+      // scenario: {
+      //   mode: ZegoUIKitPrebuilt.Live,
+      // },
       scenario: {
-        mode: ZegoUIKitPrebuilt.VideoConference,
+        mode: ZegoUIKitPrebuilt.LiveStreaming,
+        config: {
+          role: "Host",
+        },
+        resolution: {
+          width: 1920,
+          height: 1080,
+        },
       },
+      forceScreenSharing: true,
     });
   };
+  //   return (
+  //     <div>
+  //       <Header />
+  //       <div
+  //         style={{
+  //           display: "flex",
+  //           height: "100vh",
+  //           width: "100vw",
+  //           flexDirection: "column",
+  //         }}
+  //       >
+  //         <div
+  //           className="myCallContainer"
+  //           ref={myMeeting}
+  //           style={{ width: "100%", height: "100%" }}
+  //         ></div>
+  //       </div>
+  //     </div>
+  //   );
+  // };
   return (
     <div>
       <Header />
       <div
         style={{
           display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
           height: "100vh",
-          flexDirection: "column",
         }}
       >
         <div
-          className="myCallContainer"
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
           ref={myMeeting}
-          style={{ width: "100%", height: "100vh" }}
         ></div>
       </div>
     </div>

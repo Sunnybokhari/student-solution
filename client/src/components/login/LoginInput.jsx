@@ -6,7 +6,7 @@ import { Form, message, Button } from "antd";
 import { mobile, desktop } from "../../responsive";
 
 const Container = styled.div`
-  width: 60%;
+  width: 70%;
   height: 600px;
   margin: auto;
   margin-top: 100px;

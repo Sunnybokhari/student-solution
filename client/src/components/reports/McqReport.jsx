@@ -28,6 +28,7 @@ const Wrapper = styled.div`
   margin-bottom: 150px;
   border-radius: 15px;
   padding: 5px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   ${desktop({ width: "95%" })}
 `;
 

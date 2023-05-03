@@ -370,6 +370,14 @@ margin-bottom: 100px;
     margin-bottom: 50px;
     
 }
+
+.teacherPreferencebutton{
+padding-right: 15px;
+padding-left: 15px;
+padding-bottom: 7px;
+text-align: center;
+align-items: center;
+}
 @media only screen and (max-width: 1300px) {
     .flexAttemptQuestion{
         align-items:start;

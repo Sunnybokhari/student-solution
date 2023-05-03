@@ -10,7 +10,7 @@ import { mobile, desktop } from "../../responsive";
 
 const Container = styled.div`
   margin: auto;
-  width: 60%;
+  width: 80%;
   display: flex;
   ${desktop({ width: "95%" })}
 `;

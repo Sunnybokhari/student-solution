@@ -354,7 +354,7 @@ const McqAttempt = () => {
                     {secondsLeft} minutes{" "}
                     <div style={{ paddingTop: 10 }}>
                       Question {selectedQuestionIndex + 1} of{" "}
-                      {examData?.totalMarks}
+                      {questions.length}
                     </div>
                   </span>
                 </Col>
@@ -412,7 +412,7 @@ const McqAttempt = () => {
                   <Button
                     variant="outline-primary"
                     className="reviewRetakeButton"
-                    onClick={() => navigate.push("/theorypapers")}
+                    onClick={() => navigate.push("/")}
                   >
                     BACK
                   </Button>

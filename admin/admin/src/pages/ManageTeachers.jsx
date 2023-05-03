@@ -9,13 +9,8 @@ import styled from "styled-components";
 
 const Container = styled.div`
   background-color: whitesmoke;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: auto;
-  overflow: auto;
+  padding-bottom: 100px;
+
 `;
 const Wrapper = styled.div`
   width: 70%;
@@ -24,6 +19,7 @@ const Wrapper = styled.div`
   margin-top: 100px;
   margin-bottom: 100px;
   border-radius: 15px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 `;
 
 const Heading = styled.h1`

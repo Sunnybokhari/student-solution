@@ -13,7 +13,7 @@ import Navbar from "../home/Navbar";
 
 const Container = styled.div`
   background-color: whitesmoke;
-  height: 100vh;
+  padding-bottom: 50px;
 `;
 
 const Wrapper = styled.div`
@@ -23,6 +23,8 @@ const Wrapper = styled.div`
   background-color: white;
   margin-bottom: 100px;
   border-radius: 15px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+
 `;
 
 const SubjectOption = styled.option`
@@ -53,7 +55,10 @@ function ListOfLectures() {
           const data = meeting.data();
           myMeetings.push(meeting.data());
         });
-        setMeetings(myMeetings);
+        const sortedMeetings = myMeetings.sort((a, b) => {
+          return new Date(b.meetingDate) - new Date(a.meetingDate);
+        });
+        setMeetings(sortedMeetings);
       }
     };
     getMyMeetings();
@@ -87,8 +92,13 @@ function ListOfLectures() {
       title: "Date",
       dataIndex: "date",
       render: (text, record) => (
-        <>{moment(record.meetingDate).format("DD-MM-YYYY hh:mm:ss")}</>
+        <>{moment(record.meetingDate).format("DD-MM-YYYY")}</>
       ),
+    },
+    {
+      title: "Time",
+      dataIndex: "time",
+      render: (text, record) => <>{record.meetingTime}</>,
     },
     {
       title: "Max Participants",
@@ -102,10 +112,10 @@ function ListOfLectures() {
         if (record.status === "active") {
           if (moment(record.meetingDate).isSame(moment(), "day")) {
             return (
-              <Badge bg="success">
+              <Badge style={{padding:"10px"}} bg="success">
                 <Link
                   to={`/join/${record.meetingId}`}
-                  style={{ color: "black" }}
+                  style={{ color: "white" }}
                 >
                   Join Now
                 </Link>
@@ -113,14 +123,14 @@ function ListOfLectures() {
             );
           } else if (moment(record.meetingDate).isBefore(moment())) {
             record.status = "ended";
-            return <Badge bg="secondary">Ended</Badge>;
+            return <Badge style={{padding:"10px"}} bg="secondary">Ended</Badge>;
           } else if (moment(record.meetingDate).isAfter(moment())) {
-            return <Badge bg="primary">Upcoming</Badge>;
+            return <Badge style={{padding:"10px"}} bg="primary">Upcoming</Badge>;
           }
         } else if (record.status === "ended") {
-          return <Badge bg="secondary">Ended</Badge>;
+          return <Badge style={{padding:"10px"}} bg="secondary">Ended</Badge>;
         } else {
-          return <Badge bg="danger">Cancelled</Badge>;
+          return <Badge style={{padding:"10px"}} bg="danger">Cancelled</Badge>;
         }
       },
     },

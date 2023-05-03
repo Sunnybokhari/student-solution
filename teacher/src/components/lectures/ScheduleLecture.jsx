@@ -9,17 +9,6 @@ import { getUserInfo } from "../../apiCalls/teachers";
 import styled from "styled-components";
 import { addDoc } from "firebase/firestore";
 import { meetingsRef } from "../../apiCalls/firebase";
-import {
-  EuiFlexGroup,
-  EuiForm,
-  EuiFormRow,
-  EuiSpacer,
-  EuiSwitch,
-} from "@elastic/eui";
-import CreateMeetingButtons from "./FormComponents/CreateMeetingButtons";
-import MeetingDateField from "./FormComponents/MeetingDateField";
-import MeetingMaximumUsersField from "./FormComponents/MeetingMaximumUsersField";
-import MeetingNameField from "./FormComponents/MeetingNameFIeld";
 import { generateMeetingId } from "./FormComponents/generateMeetingId";
 import { TimePicker } from "antd";
 import dayjs from "dayjs";

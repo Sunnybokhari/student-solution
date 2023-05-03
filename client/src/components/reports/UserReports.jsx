@@ -35,6 +35,7 @@ const Wrapper = styled.div`
   padding-left: 5px;
   padding-right: 5px;
   padding-bottom: 15px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   ${desktop({ width: "95%" })}
 `;
 
@@ -264,7 +265,7 @@ function UserReports() {
     });
 
     const labels = reportsData
-      .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
+      .map((data) => moment(data.createdAt).format("DD-MM-YY"))
       .reverse();
 
     setUserReports({
@@ -320,7 +321,7 @@ function UserReports() {
     });
 
     const labels = reportsDataT
-      .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
+      .map((data) => moment(data.createdAt).format("DD-MM-YY"))
       .reverse();
 
     setUserReportsT({
@@ -360,7 +361,7 @@ function UserReports() {
     });
 
     const labels = globalReportsData
-      .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
+      .map((data) => moment(data.createdAt).format("DD-MM-YY"))
       .reverse();
 
     setGlobalReports({
@@ -400,7 +401,7 @@ function UserReports() {
     });
 
     const labels = globalReportsDataT
-      .map((data) => moment(data.createdAt).format("MMM D, YYYY"))
+      .map((data) => moment(data.createdAt).format("DD-MM-YY"))
       .reverse();
 
     setGlobalReportsT({

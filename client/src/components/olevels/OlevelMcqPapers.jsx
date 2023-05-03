@@ -13,12 +13,13 @@ const Container = styled.div`
   background-color: whitesmoke;
 `;
 const Wrapper = styled.div`
-  width: 70%;
+  width: 80%;
   margin: auto;
   margin-top: 100px;
   background-color: white;
   margin-bottom: 100px;
   border-radius: 15px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   ${desktop({ width: "95%" })}
 `;
 

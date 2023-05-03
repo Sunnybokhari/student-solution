@@ -12,6 +12,7 @@ import { message } from "antd";
 
 const Container1 = styled.div`
   background-color: whitesmoke;
+  box-shadow: 0 3px 3px rgb(0 0 0 / 0.2);
 `;
 const Header = () => {
   const { user } = useSelector((state) => state.users);
@@ -38,6 +39,46 @@ const Header = () => {
   useEffect(() => {
     getUserData();
   }, []);
+
+  // const homeRef = useRef(null);
+  // const mcqRef = useRef(null);
+  // const theoryRef = useRef(null);
+  // const reportsRef = useRef(null);
+  // const lecturesRef = useRef(null);
+  // const { id } = useParams();
+  // useEffect(() => {
+  //   const { pathname } = location;
+  //   setActiveItem(pathname);
+
+  //   if (homeRef.current && pathname === "/") {
+  //     homeRef.current.setAttribute("aria-current", "page");
+  //   } else if (mcqRef.current && pathname === "/mcqpapers") {
+  //     mcqRef.current.setAttribute("aria-current", "page");
+  //   } else if (theoryRef.current && pathname === "/theorypapers") {
+  //     theoryRef.current.setAttribute("aria-current", "page");
+  //   } else if (reportsRef.current && pathname === "/reports") {
+  //     reportsRef.current.setAttribute("aria-current", "page");
+  //   } else if (
+  //     location.pathname.includes("/theoryreport/") &&
+  //     location.pathname.includes(id)
+  //   ) {
+  //     reportsRef.current.setAttribute("aria-current", "page");
+  //   } else if (
+  //     location.pathname.includes("/mcqattempt/") &&
+  //     location.pathname.includes(id)
+  //   ) {
+  //     mcqRef.current.setAttribute("aria-current", "page");
+  //   } else if (
+  //     location.pathname.includes("/theoryattempt/") &&
+  //     location.pathname.includes(id)
+  //   ) {
+  //     theoryRef.current.setAttribute("aria-current", "page");
+  //   } else if (lecturesRef.current && pathname === "/listoflectures") {
+  //     lecturesRef.current.setAttribute("aria-current", "page");
+  //   }
+  // }, [location]);
+
+
   return (
     <Container1>
       {[false].map((expand) => (

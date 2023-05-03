@@ -8,13 +8,16 @@ import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   background-color: whitesmoke;
+  padding-bottom: 100px;
 `;
 const Wrapper = styled.div`
-  width: 70%;
+  width: 80%;
   margin: auto;
   background-color: white;
   margin-bottom: 100px;
   border-radius: 15px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+
 `;
 
 const Heading = styled.h1`

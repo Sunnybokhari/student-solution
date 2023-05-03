@@ -26,6 +26,7 @@ const { TabPane } = Tabs;
 
 const Container = styled.div`
   background-color: whitesmoke;
+  padding-bottom:100px;
 `;
 
 const Wrapper = styled.div`
@@ -35,6 +36,8 @@ const Wrapper = styled.div`
   margin-bottom: 100px;
   border-radius: 15px;
   padding: 15px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+
 `;
 
 const Heading = styled.h1`

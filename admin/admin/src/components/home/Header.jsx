@@ -10,6 +10,8 @@ import { useDispatch } from "react-redux";
 
 const Container1 = styled.div`
   background-color: whitesmoke;
+  box-shadow: 0 3px 3px rgb(0 0 0 / 0.2);
+
 `;
 const Header = () => {
   const dispatch = useDispatch();

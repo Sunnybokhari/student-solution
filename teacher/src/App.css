@@ -9,6 +9,11 @@
 
 
 
+  .navlink[aria-current="header"] {
+    text-decoration: underline solid 2px #007bff;
+ text-underline-offset: 8px;
+   }
+
 /* Navbar Component */
 
 .navL{

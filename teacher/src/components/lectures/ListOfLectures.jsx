@@ -20,6 +20,9 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import MeetingDateField from "./FormComponents/MeetingDateField";
 import MeetingMaximumUsersField from "./FormComponents/MeetingMaximumUsersField";
 import MeetingNameField from "./FormComponents/MeetingNameFIeld";
+import { DatePicker, Space, Form } from "antd";
+import { TimePicker } from "antd";
+import dayjs from "dayjs";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -33,6 +36,8 @@ const Wrapper = styled.div`
   background-color: white;
   margin-bottom: 100px;
   border-radius: 15px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+
 `;
 
 function ListOfLectures() {
@@ -72,7 +77,10 @@ function ListOfLectures() {
             ...meeting.data(),
           });
         });
-        setMeetings(myMeetings);
+        const sortedMeetings = myMeetings.sort((a, b) => {
+          return new Date(b.meetingDate) - new Date(a.meetingDate);
+        });
+        setMeetings(sortedMeetings);
       }
     }
   }, [teacherData?._id]);
@@ -95,6 +103,18 @@ function ListOfLectures() {
   const [size, setSize] = useState(50);
   const [status, setStatus] = useState();
   const [startDate, setStartDate] = useState();
+  const [startTime, setStartTime] = useState();
+  const [startDate1, setStartDate1] = useState();
+  const [startTime1, setStartTime1] = useState();
+  const format = "HH:mm";
+
+  const onChangeDate = (date, dateString) => {
+    setStartDate(moment(dateString));
+  };
+
+  const onChangeTime = (time) => {
+    setStartTime(time);
+  };
 
   const updateMeeting = async () => {
     const editedMeeting = {
@@ -102,6 +122,7 @@ function ListOfLectures() {
       meetingName,
       maxUsers: size,
       meetingDate: startDate.format("L"),
+      meetingTime: startTime.format("HH:mm"),
       status: status,
     };
     delete editedMeeting.docId;
@@ -158,10 +179,10 @@ function ListOfLectures() {
         if (record.status === "active") {
           if (moment(record.meetingDate).isSame(moment(), "day")) {
             return (
-              <Badge bg="success">
+              <Badge style={{padding:"10px"}} bg="success">
                 <Link
                   to={`/join/${record.meetingId}`}
-                  style={{ color: "black" }}
+                  style={{ color: "white" }}
                 >
                   Join Now
                 </Link>
@@ -169,14 +190,14 @@ function ListOfLectures() {
             );
           } else if (moment(record.meetingDate).isBefore(moment())) {
             record.status = "ended";
-            return <Badge bg="secondary">Ended</Badge>;
+            return <Badge style={{padding:"10px"}} bg="secondary">Ended</Badge>;
           } else if (moment(record.meetingDate).isAfter(moment())) {
-            return <Badge bg="primary">Upcoming</Badge>;
+            return <Badge style={{padding:"10px"}} bg="primary">Upcoming</Badge>;
           }
         } else if (record.status === "ended") {
-          return <Badge bg="secondary">Ended</Badge>;
+          return <Badge style={{padding:"10px"}} bg="secondary">Ended</Badge>;
         } else {
-          return <Badge bg="danger">Cancelled</Badge>;
+          return <Badge style={{padding:"10px"}} bg="danger">Cancelled</Badge>;
         }
       },
     },
@@ -206,6 +227,8 @@ function ListOfLectures() {
               handleShow(record);
               setStartDate(moment(record?.meetingDate));
               setMeetingName(record.meetingName);
+              setStartTime(moment(record?.meetingTime, format));
+              setStatus(record.status);
             }}
             disabled={record.status !== "active"}
           >
@@ -217,7 +240,7 @@ function ListOfLectures() {
               <Offcanvas.Title>Edit Lecture</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <EuiFlexGroup justifyContent="center" alignItems="center">
+              {/* <EuiFlexGroup justifyContent="center" alignItems="center">
                 <EuiForm>
                   <MeetingNameField
                     label="Meeting name"
@@ -226,7 +249,6 @@ function ListOfLectures() {
                     setMeetingName={setMeetingName}
                   />
 
-                  {/* <MeetingMaximumUsersField value={size} setSize={setSize} /> */}
 
                   <MeetingDateField
                     selected={startDate}
@@ -245,7 +267,78 @@ function ListOfLectures() {
                   <EuiSpacer />
                   <Button onClick={updateMeeting}>Update</Button>
                 </EuiForm>
-              </EuiFlexGroup>
+              </EuiFlexGroup> */}
+              <Form
+          name="normal_login"
+          className=""
+          style={{ padding: "10px" }}
+          layout="vertical"
+          initialValues={{
+            meetingName: meetingName,
+            date: startDate,
+            time: startTime,
+          }}
+          onFinish={updateMeeting}
+        >
+          <Form.Item className="" name="meetingName" label="Lecture name">
+            <input
+            name="meetingName"
+              className=" forminput"
+              placeholder="Lecture name"
+              // value={meetingName}
+              type="text"
+              onChange={(e) => setMeetingName(e.target.value)}
+            />
+          </Form.Item>
+
+          <div style={{ display: "flex" }}>
+            <div>
+              <span>Select Date</span>
+              <Space direction="vertical">
+                <DatePicker name="date"   onChange={onChangeDate} />
+              </Space>
+            </div>
+            <div>
+              <span>Select Time</span>
+              <TimePicker
+              name="time"
+                onChange={onChangeTime}
+                // defaultValue={dayjs(startTime, format)}
+                format={format}
+              />
+            </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "end",
+              marginTop: "15px",
+            }}
+          >
+            <Button
+              classname="formB"
+              variant="danger"
+              size="large"
+              onClick={() => {
+                setStatus("canceled");
+                updateMeeting();
+              }}
+              block
+              style={{ marginRight: "10px" }}
+            >
+              Cancel Meeting
+            </Button>
+            <Button
+              classname="formB"
+              type="primary"
+              size="large"
+              htmlType="submit"
+              block
+            >
+              Update
+            </Button>
+          </div>
+        </Form>
             </Offcanvas.Body>
           </Offcanvas>
         </div>

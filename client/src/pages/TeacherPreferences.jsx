@@ -25,7 +25,7 @@ const Container = styled.div``;
 
 const Wrapper = styled.div`
   margin-top: 100;
-  width: 70%;
+  width: 80%;
   margin: auto;
   align-items: center;
   margin-bottom: 200px;
@@ -89,29 +89,30 @@ const Profile = () => {
       title: "Date joined",
       dataIndex: "date",
       render: (text, record) => (
-        <>{moment(record.createdAt).format("DD-MM-YYYY hh:mm:ss")}</>
+        <>{moment(record.createdAt).format("DD-MM-YYYY")}</>
       ),
     },
     {
-      title: "Action",
+      title: "Set Preference",
       dataIndex: "action",
       render: (text, record) => (
         <div>
           <Button
             className="primary me-2 teacherPreferencebutton"
             size="sm"
+            
             onClick={() => {
               subscriptionAccessTheory();
               setPreference(record.email, record.subject);
             }}
           >
-            Set Preferrence
+            Set
           </Button>
         </div>
       ),
     },
     {
-      title: "Action",
+      title: "Remove Preference",
       dataIndex: "action",
       render: (text, record) => (
         <div>
@@ -121,7 +122,7 @@ const Profile = () => {
             variant="danger"
             onClick={() => removeUserPreference(record.email)}
           >
-            Remove Preferrence
+            Remove
           </Button>
         </div>
       ),

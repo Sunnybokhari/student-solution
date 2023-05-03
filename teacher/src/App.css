@@ -7,13 +7,44 @@
     color: white;
   }
 
+  .navlink {
+    padding: 5px 10px;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  .navlink:hover {
+    color: black;
+    background-color: rgb(179, 179, 179);
+  }
 
-
-  .navlink[aria-current="header"] {
-    text-decoration: underline solid 2px #007bff;
- text-underline-offset: 8px;
-   }
-
+  /* .navlink[aria-current="page"] {
+   text-decoration: underline solid 2px #007bff;
+text-underline-offset: 8px;
+  } */
+  .active {
+/* border-bottom: solid 2px #007bff; */
+  background-color: rgb(179, 179, 179);
+}
+  
+  /* .navlink::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 0;
+    bottom: -4px;
+    left: 0;
+    background-color: #007bff;
+    transition: width 0.2s ease-in-out;
+  }
+  
+  .navlink:hover::before {
+    width: 100%;
+  }
+  
+  .navlink:hover {
+    color: #007bff;
+  } */
 /* Navbar Component */
 
 .navL{

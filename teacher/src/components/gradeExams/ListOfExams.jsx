@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 
 const Container = styled.div`
   background-color: whitesmoke;
-  height: 100vh;
+  padding-bottom: 100px;
 `;
 
 const Wrapper = styled.div`
@@ -22,6 +22,7 @@ const Wrapper = styled.div`
   background-color: white;
   margin-bottom: 100px;
   border-radius: 15px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 `;
 
 function ListOfExams() {

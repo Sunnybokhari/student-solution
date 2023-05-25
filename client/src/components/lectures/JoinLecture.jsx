@@ -64,8 +64,8 @@ const JoinLecture = () => {
     getMeetingData();
   }, [params.id]);
 
-  const appId = 712084072;
-  const serverSecret = "b97c987340b641606db06d1153442886";
+  const appId = 2005541435;
+  const serverSecret = "a55d3d4663a1126ab5d1683d16878b8a";
 
   const myMeeting = async (element) => {
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(

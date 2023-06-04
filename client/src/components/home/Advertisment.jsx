@@ -49,7 +49,7 @@ const Point = styled.div`
 
 const Circle = styled.div`
   display: flex;
-  background-color: blue;
+  background-color: #007bff;
   width: 80%;
   height: 70%;
   border-radius: 70px;

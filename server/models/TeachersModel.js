@@ -30,6 +30,10 @@ const teacherSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    gradedExams: {
+      type: Number,
+      required: false,
+    },
   },
   {
     timestamps: true,

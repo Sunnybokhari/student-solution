@@ -11,11 +11,21 @@ import {
 import { getExamById } from "../../apiCalls/theoryExams";
 import { addReportTheory } from "../../apiCalls/theoryReports";
 import Navbar from "../home/Header";
+import { getUserInfo } from "../../apiCalls/teachers";
+import { updateGradedExams } from "../../apiCalls/teachers";
 
 const Container = styled.div`
   background-color: whitesmoke;
   justify-content: center;
   display: block;
+`;
+
+const TopWrapper = styled.div`
+  width: 100%;
+  margin: auto;
+  margin-top: 100px;
+  padding-bottom: 100px;
+  display: flex;
 `;
 
 const Wrapper = styled.div`
@@ -51,7 +61,7 @@ const PaperName = styled.h2`
 `;
 
 const QuestionContainer = styled.div`
-  width: 80%;
+  width: 100%;
   margin: auto;
   background-color: lightgray;
   border-radius: 10px;
@@ -82,6 +92,7 @@ const GradeExam = () => {
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0);
   const [studentAnswers, setStudentAnswers] = useState([]);
   const [obtainedMarks, setobtainedMarks] = useState(0);
+  const [teacherData, setTeacherData] = React.useState({ subject: "" });
 
   const params = useParams();
   const { user } = useSelector((state) => state.users);
@@ -144,7 +155,9 @@ const GradeExam = () => {
     });
     if (response.success) {
       message.success(response.message);
-
+      const responseUpdate = await updateGradedExams({
+        userId: teacherData._id,
+      });
       try {
         const response = await deleteAttemptById({
           answerId: params.id,
@@ -163,6 +176,22 @@ const GradeExam = () => {
     }
   };
 
+  const getTeacherData = async () => {
+    try {
+      const response = await getUserInfo();
+
+      if (response.success) {
+        setTeacherData(response.data);
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
+  useEffect(() => {
+    getTeacherData();
+  }, []);
   return (
     <Container>
       <Navbar />
@@ -173,119 +202,151 @@ const GradeExam = () => {
         {attemptData?.exam.class} {attemptData?.exam.subject}{" "}
         {attemptData?.exam.year} {attemptData?.exam.name}
       </PaperName>
-      <Wrapper>
-        <QuestionContainer style={{ marginBottom: 20, paddingBottom: 20 }}>
-          <Row>
-            <Col xs={12} className="">
-              <QuestionHeadingContainer>
-                <h1 style={{ marginBottom: 10 }}>
-                  Question {selectedQuestionIndex + 1}
-                </h1>
-              </QuestionHeadingContainer>
-              <div style={{ display: "flex", justifyContent: "center" }}>
+      <TopWrapper>
+        <Wrapper>
+          <QuestionContainer style={{ marginBottom: 20, paddingBottom: 20 }}>
+            <Row>
+              <Col xs={12} className="">
+                <QuestionHeadingContainer>
+                  <h1 style={{ marginBottom: 10 }}>
+                    Question {selectedQuestionIndex + 1}
+                  </h1>
+                </QuestionHeadingContainer>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <img
+                    className="questionImage"
+                    src={questions[selectedQuestionIndex]?.name}
+                  ></img>
+                </div>
+                <br />
+              </Col>
+            </Row>
+          </QuestionContainer>
+          <QuestionContainer>
+            <Row>
+              <Col xs={12}>
+                <QuestionHeadingContainer>
+                  <h1 style={{ marginBottom: 10 }}>
+                    Answer {selectedQuestionIndex + 1}
+                  </h1>
+                </QuestionHeadingContainer>
                 <img
                   className="questionImage"
-                  src={questions[selectedQuestionIndex]?.name}
+                  style={{ marginBottom: 20 }}
+                  src={answers[selectedQuestionIndex]?.picture}
                 ></img>
-              </div>
-              <br />
-            </Col>
-          </Row>
-        </QuestionContainer>
-        <QuestionContainer>
-          <Row>
-            <Col xs={12}>
-              <QuestionHeadingContainer>
-                <h1 style={{ marginBottom: 10 }}>
-                  Answer {selectedQuestionIndex + 1}
-                </h1>
-              </QuestionHeadingContainer>
-              <img
-                className="questionImage"
-                style={{ marginBottom: 20 }}
-                src={answers[selectedQuestionIndex]?.picture}
-              ></img>
-              <br />
-              <span style={{ margin: 10, color: "gray", marginTop: 20 }}>
-                Give your response
-              </span>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              {/* <TextArea rows={4} /> */}
-              <TextArea
-                className="questionImage"
-                rows={4}
-                value={studentAnswers[selectedQuestionIndex] || ""}
-                onChange={(event) => {
-                  const updatedAnswers = [...studentAnswers];
-                  updatedAnswers[selectedQuestionIndex] = event.target.value;
-                  setStudentAnswers(updatedAnswers);
-                }}
-              />
+                <br />
+                <span style={{ margin: 10, color: "gray", marginTop: 20 }}>
+                  Give your response
+                </span>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12}>
+                {/* <TextArea rows={4} /> */}
+                <TextArea
+                  className="questionImage"
+                  rows={4}
+                  value={studentAnswers[selectedQuestionIndex] || ""}
+                  onChange={(event) => {
+                    const updatedAnswers = [...studentAnswers];
+                    updatedAnswers[selectedQuestionIndex] = event.target.value;
+                    setStudentAnswers(updatedAnswers);
+                  }}
+                />
 
-              <br />
-            </Col>
-          </Row>
+                <br />
+              </Col>
+            </Row>
 
-          <Row>
-            <Col style={{ display: "flex", justifyContent: "end" }}>
-              {selectedQuestionIndex === questions.length - 1 && (
-                <Form layout="horizontal" style={{ width: 260 }}>
-                  <Form.Item
-                    style={{ marginRight: 15, marginTop: 25 }}
-                    label={`Total Exam Marks out of ${attemptData?.exam.totalMarks}`}
-                    name="totalMarks"
+            <Row>
+              <Col style={{ display: "flex", justifyContent: "end" }}>
+                {selectedQuestionIndex === questions.length - 1 && (
+                  <Form layout="horizontal" style={{ width: 260 }}>
+                    <Form.Item
+                      style={{ marginRight: 15, marginTop: 25 }}
+                      label={`Total Exam Marks out of ${attemptData?.exam.totalMarks}`}
+                      name="totalMarks"
+                    >
+                      <Input
+                        value={obtainedMarks}
+                        onChange={(e) => setobtainedMarks(e.target.value)}
+                        max={attemptData?.exam.totalMarks}
+                        type="number"
+                      />
+                    </Form.Item>
+                  </Form>
+                )}
+                {selectedQuestionIndex > 0 && (
+                  <Button
+                    className="attemptButtonPrevious"
+                    variant="outline-primary"
+                    onClick={() => {
+                      setSelectedQuestionIndex(selectedQuestionIndex - 1);
+                    }}
                   >
-                    <Input
-                      value={obtainedMarks}
-                      onChange={(e) => setobtainedMarks(e.target.value)}
-                      max={attemptData?.exam.totalMarks}
-                      type="number"
-                    />
-                  </Form.Item>
-                </Form>
-              )}
-              {selectedQuestionIndex > 0 && (
-                <Button
-                  className="attemptButtonPrevious"
-                  variant="outline-primary"
-                  onClick={() => {
-                    setSelectedQuestionIndex(selectedQuestionIndex - 1);
-                  }}
-                >
-                  Previous
-                </Button>
-              )}
-              {selectedQuestionIndex < questions.length - 1 && (
-                <Button
-                  className="attemptButton"
-                  variant="outline-primary"
-                  onClick={() => {
-                    // onFinish();
-                    setSelectedQuestionIndex(selectedQuestionIndex + 1);
-                  }}
-                >
-                  Next
-                </Button>
-              )}
-              {selectedQuestionIndex === questions.length - 1 && (
-                <Button
-                  className="attemptButtonSubmit"
-                  variant="outline-success"
-                  type="submit"
-                  onClick={() => {
-                    onFinish();
-                  }}
-                >
-                  Submit
-                </Button>
-              )}
-            </Col>
-          </Row>
-        </QuestionContainer>
-      </Wrapper>
+                    Previous
+                  </Button>
+                )}
+                {selectedQuestionIndex < questions.length - 1 && (
+                  <Button
+                    className="attemptButton"
+                    variant="outline-primary"
+                    onClick={() => {
+                      // onFinish();
+                      setSelectedQuestionIndex(selectedQuestionIndex + 1);
+                    }}
+                  >
+                    Next
+                  </Button>
+                )}
+                {selectedQuestionIndex === questions.length - 1 && (
+                  <Button
+                    className="attemptButtonSubmit"
+                    variant="outline-success"
+                    type="submit"
+                    onClick={() => {
+                      onFinish();
+                    }}
+                  >
+                    Submit
+                  </Button>
+                )}
+              </Col>
+            </Row>
+          </QuestionContainer>
+        </Wrapper>
+
+        {/* <Col xs={1}> */}
+        <div
+          style={{
+            width: "200px",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            marginRight: "100px",
+            marginTop: "100px",
+            alignContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {questions.map((q, index) => (
+            <div
+              key={index}
+              className={`question-circle ${
+                selectedQuestionIndex === index ? "selected" : ""
+              } `}
+              style={{
+                backgroundColor: answers[index] !== undefined ? "#28a745" : "",
+              }}
+              onClick={() => setSelectedQuestionIndex(index)}
+            >
+              {index + 1}
+            </div>
+          ))}
+        </div>
+        {/* </Col> */}
+      </TopWrapper>
     </Container>
   );
 };

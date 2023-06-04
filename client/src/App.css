@@ -101,7 +101,7 @@ background: none;
 .headerP{
     margin-bottom: 0px;
     padding-bottom: 0px;
-    color: blue;
+    color: #007bff;
     font-weight: bold;
 }
 
@@ -133,7 +133,7 @@ background: none;
 /* Payment Plan Component */
 
 .planH{
-    color:rgb(0, 89, 255);
+    color:#007bff;
 }
 
 .planPrice{

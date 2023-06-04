@@ -1,6 +1,6 @@
 import React from "react";
 import { message, Table } from "antd";
-import { getAllUsers } from "../apiCalls/teachers";
+import { deleteTeacherById, getAllUsers } from "../apiCalls/teachers";
 import { useEffect } from "react";
 import moment from "moment";
 import Header from "../components/home/Header";
@@ -10,7 +10,6 @@ import styled from "styled-components";
 const Container = styled.div`
   background-color: whitesmoke;
   padding-bottom: 100px;
-
 `;
 const Wrapper = styled.div`
   width: 70%;
@@ -39,6 +38,22 @@ const HeadingText = styled.span`
 
 function ManageTeachers() {
   const [teachersData, setTeachersData] = React.useState([]);
+
+  const deleteTeacher = async (teacherId) => {
+    try {
+      const response = await deleteTeacherById({
+        teacherId,
+      });
+      if (response.success) {
+        message.success(response.message);
+        getData();
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
 
   const columns = [
     {
@@ -71,6 +86,22 @@ function ManageTeachers() {
       dataIndex: "date",
       render: (text, record) => (
         <>{moment(record.createdAt).format("DD-MM-YYYY hh:mm:ss")}</>
+      ),
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      render: (text, record) => (
+        <div>
+          <Button
+            className="danger me-2"
+            variant="danger"
+            size="sm"
+            onClick={() => deleteTeacher(record._id)}
+          >
+            Delete
+          </Button>
+        </div>
       ),
     },
   ];

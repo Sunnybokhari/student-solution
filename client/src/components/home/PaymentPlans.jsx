@@ -14,7 +14,7 @@ const Container = styled.div`
   display: block;
   align-items: center;
   justify-content: center;
-  background-color: #5882ff;
+  background-color: #007bff;
   color: white;
   padding-bottom: 100px;
   padding-top: 30px;
@@ -84,16 +84,18 @@ const PaymentPlans = () => {
             <span className="priceSs">/mon</span>
           </span>
           <div>
-            <ul className="planL">
-              <li>lorem ipsum</li>
-              <li>lorem ipsum</li>
-              <li>lorem ipsum</li>
-              <li>lorem ipsum</li>
-              <li>lorem ipsum</li>
+            <ul style={{ fontSize: "25px" }} className="planL">
+              <li style={{ color: "green" }}>5 Theory Attempts</li>
+              <li style={{ color: "green" }}>
+                Personalized Teacher Evaluation
+              </li>
+              <li style={{ color: "green" }}>Set Teacher Preferences</li>
+              <li style={{ color: "green" }}>Theory Exams Analytics</li>
+              <li style={{ color: "red" }}>Online Lectures</li>
             </ul>
           </div>
           <Button
-            // className="planB btn-lg"
+            style={{ width: "200px" }}
             variant="outline-primary"
             onClick={() => {
               onFinish("price_1MicP9IVcmWXjYBzGHwKsZbn");
@@ -110,16 +112,18 @@ const PaymentPlans = () => {
             <span className="priceSs">/mon</span>
           </span>
           <div>
-            <ul className="planL">
-              <li>lorem ipsum</li>
-              <li>lorem ipsum</li>
-              <li>lorem ipsum</li>
-              <li>lorem ipsum</li>
-              <li>lorem ipsum</li>
+            <ul style={{ fontSize: "25px" }} className="planL">
+              <li style={{ color: "green" }}>20 Theory Attempts</li>
+              <li style={{ color: "green" }}>
+                Personalized Teacher Evaluation
+              </li>
+              <li style={{ color: "green" }}>Set Teacher Preferences</li>
+              <li style={{ color: "green" }}>Theory Exams Analytics</li>
+              <li style={{ color: "red" }}>Online Lectures</li>
             </ul>
           </div>
           <Button
-            // className="planB btn-lg"
+            style={{ width: "200px" }}
             variant="outline-primary"
             onClick={() => {
               onFinish("price_1MicQgIVcmWXjYBzI0c5QiX3");
@@ -136,16 +140,18 @@ const PaymentPlans = () => {
             <span className="priceSs">/mon</span>
           </span>
           <div>
-            <ul className="planL">
-              <li>lorem ipsum</li>
-              <li>lorem ipsum</li>
-              <li>lorem ipsum</li>
-              <li>lorem ipsum</li>
-              <li>lorem ipsum</li>
+            <ul style={{ fontSize: "25px" }} className="planL">
+              <li style={{ color: "green" }}>Unlimited Theory Attempts</li>
+              <li style={{ color: "green" }}>
+                Personalized Teacher Evaluation
+              </li>
+              <li style={{ color: "green" }}>Set Teacher Preferences</li>
+              <li style={{ color: "green" }}>Theory Exams Analytics</li>
+              <li style={{ color: "green" }}>Online Lectures</li>
             </ul>
           </div>
           <Button
-            // className="planB btn-lg"
+            style={{ width: "200px" }}
             variant="outline-primary"
             onClick={() => {
               onFinish("price_1MicRlIVcmWXjYBzWJ477kGH");

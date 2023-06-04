@@ -115,4 +115,39 @@ router.post("/get-all-users", authMiddleware, async (req, res) => {
     });
   }
 });
+router.post("/update-gradedExams", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId);
+    user.gradedExams++;
+    await user.save();
+
+    res.send({
+      message: "User info updated successfully",
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      data: error,
+      success: false,
+    });
+  }
+});
+
+router.post("/delete-teacher-by-id", authMiddleware, async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.body.teacherId);
+    res.send({
+      message: "Teacher removed successfully",
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      data: error,
+      success: false,
+    });
+  }
+});
 module.exports = router;

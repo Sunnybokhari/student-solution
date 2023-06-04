@@ -33,7 +33,7 @@ const Caro = () => {
         <Carousel.Caption>
           <h1 className="sliderHeading">MCQ PAPERS</h1>
           <p className="sliderP">
-            Past papers practice for Cambridge Mcq Exams
+            Past papers practice for Cambridge MCQ Exams
           </p>
           <Link
             to="/mcqpapers"

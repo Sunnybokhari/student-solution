@@ -39,3 +39,15 @@ export const getAllUsers = async () => {
     return error.response.data;
   }
 };
+
+export const updateGradedExams = async (payload) => {
+  try {
+    const response = await axiosInstance.post(
+      "/api/teachers/update-gradedExams",
+      payload
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};

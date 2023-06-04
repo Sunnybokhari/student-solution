@@ -42,7 +42,7 @@ const FormInput = () => {
 
       if (response.success) {
         message.success(response.message);
-        window.location.href = "/home";
+        window.location.href = "/manageteachers";
       } else {
         message.error(response.message);
       }
